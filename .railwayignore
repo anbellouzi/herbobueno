@@ -1,0 +1,4 @@
+# Force Railway to use Docker instead of Nixpacks
+.nixpacks/
+nixpacks.toml
+railway.json
