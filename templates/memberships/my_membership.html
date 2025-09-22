@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}My Membership - Herbo Bueno Club{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            {% if membership %}
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-crown text-success fa-3x mb-3"></i>
+                            <h1 class="display-6 fw-bold mb-2">{{ membership.tier.name }}</h1>
+                            <p class="lead text-muted">{{ membership.tier.description }}</p>
+                        </div>
+
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-calendar text-primary fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="fw-bold mb-0">Start Date</h6>
+                                        <p class="text-muted mb-0">{{ membership.start_date|date:"M d, Y" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-calendar text-warning fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="fw-bold mb-0">End Date</h6>
+                                        <p class="text-muted mb-0">{{ membership.end_date|date:"M d, Y" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-gift text-success fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="fw-bold mb-0">Giveaway Multiplier</h6>
+                                        <p class="text-muted mb-0">{{ membership.tier.giveaway_multiplier }}x entries</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-info-circle text-info fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="fw-bold mb-0">Status</h6>
+                                        {% if membership.is_active %}
+                                            <span class="badge bg-success">Active</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">Expired</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="fw-bold mb-3">Your Benefits</h5>
+                            <div class="bg-light p-3 rounded">
+                                {{ membership.tier.benefits|linebreaks }}
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <a href="{% url 'membership_tiers' %}" class="btn btn-outline-success">
+                                <i class="fas fa-arrow-up me-2"></i>Upgrade Membership
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-5 text-center">
+                        <i class="fas fa-crown text-muted fa-3x mb-3"></i>
+                        <h2 class="fw-bold mb-3">No Active Membership</h2>
+                        <p class="lead text-muted mb-4">Join a membership tier to unlock exclusive benefits and increase your giveaway entries!</p>
+                        <a href="{% url 'membership_tiers' %}" class="btn btn-success btn-lg">
+                            <i class="fas fa-crown me-2"></i>Choose Membership
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Quick Actions -->
+            <div class="row g-4 mt-4">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold mb-3">
+                                <i class="fas fa-shopping-bag text-success me-2"></i>My Purchases
+                            </h5>
+                            <p class="text-muted mb-3">View your purchase history and earned entries</p>
+                            <a href="{% url 'my_purchases' %}" class="btn btn-outline-success">View Purchases</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold mb-3">
+                                <i class="fas fa-gift text-primary me-2"></i>My Entries
+                            </h5>
+                            <p class="text-muted mb-3">Check your giveaway entries and winnings</p>
+                            <a href="{% url 'my_entries' %}" class="btn btn-outline-primary">View Entries</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

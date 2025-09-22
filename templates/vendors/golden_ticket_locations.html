@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block title %}Golden Ticket Locations - Herbo Bueno Club{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="fas fa-crown text-warning me-3"></i>Golden Ticket Locations
+            </h1>
+            <p class="lead text-muted">These special businesses offer 5x the points when you scan their QR codes!</p>
+        </div>
+    </div>
+
+    {% if golden_businesses %}
+        <div class="row g-4">
+            {% for business in golden_businesses %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card golden-business-card h-100 border-0 shadow-lg">
+                    <div class="card-header bg-warning text-dark">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-crown fa-2x me-3"></i>
+                            <div>
+                                <h5 class="fw-bold mb-0">Golden Ticket Location</h5>
+                                <small>5x Points Bonus!</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    {% if business.banner_image %}
+                        <img src="{{ business.banner_image.url }}" alt="{{ business.name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <i class="fas fa-store fa-3x text-muted"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            {% if business.logo %}
+                                <img src="{{ business.logo.url }}" alt="{{ business.name }}" class="business-logo me-3">
+                            {% endif %}
+                            <div>
+                                <h5 class="card-title fw-bold mb-1">{{ business.name }}</h5>
+                                <span class="badge bg-primary">{{ business.get_category_display }}</span>
+                            </div>
+                        </div>
+                        
+                        <p class="card-text text-muted mb-3">{{ business.description|truncatewords:20 }}</p>
+                        
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-map-marker-alt text-success me-2"></i>
+                                    <small class="text-muted">{{ business.city }}, {{ business.state }}</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-star text-warning me-2"></i>
+                                    <small class="fw-bold text-warning">{{ business.points_per_visit|floatformat:0|add:0|mul:5 }} pts</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{% url 'business_detail' business.id %}" class="btn btn-warning">
+                                <i class="fas fa-eye me-1"></i>View Details
+                            </a>
+                            <span class="badge bg-warning text-dark">
+                                <i class="fas fa-crown me-1"></i>Golden Ticket
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Golden Ticket Info -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card border-0 bg-warning text-dark">
+                    <div class="card-body p-5">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h2 class="fw-bold mb-3">
+                                    <i class="fas fa-crown me-2"></i>What are Golden Tickets?
+                                </h2>
+                                <p class="lead mb-3">
+                                    Golden Ticket locations are special businesses in our ecosystem that offer 
+                                    <strong>5x the normal points</strong> when you scan their QR codes!
+                                </p>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="fas fa-check me-2"></i>
+                                        <strong>5x Points:</strong> Earn 5 times the normal points per visit
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-check me-2"></i>
+                                        <strong>Limited Time:</strong> Golden tickets rotate between businesses
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-check me-2"></i>
+                                        <strong>Same Rules:</strong> One scan per day per business
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <i class="fas fa-crown fa-5x mb-3"></i>
+                                <h4 class="fw-bold">5x Points!</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-crown fa-3x text-muted mb-3"></i>
+            <h3 class="text-muted">No Golden Ticket locations available</h3>
+            <p class="text-muted">Check back soon for special golden ticket opportunities!</p>
+        </div>
+    {% endif %}
+
+    <!-- How to Find Golden Tickets -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card border-0 bg-light">
+                <div class="card-body p-5">
+                    <h2 class="fw-bold text-center mb-4">How to Find Golden Tickets</h2>
+                    <div class="row g-4">
+                        <div class="col-md-4 text-center">
+                            <div class="step-number bg-warning text-dark rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <span class="fw-bold fs-4">1</span>
+                            </div>
+                            <h5 class="fw-bold mb-3">Check This Page</h5>
+                            <p class="text-muted">Visit this page regularly to see which businesses currently have golden tickets.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="step-number bg-warning text-dark rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <span class="fw-bold fs-4">2</span>
+                            </div>
+                            <h5 class="fw-bold mb-3">Visit the Business</h5>
+                            <p class="text-muted">Go to the business and make a purchase for things you need.</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="step-number bg-warning text-dark rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <span class="fw-bold fs-4">3</span>
+                            </div>
+                            <h5 class="fw-bold mb-3">Scan & Earn</h5>
+                            <p class="text-muted">Scan their QR code and earn 5x the normal points!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}My Purchases - Herbo Bueno Club{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="display-5 fw-bold">My Purchases</h1>
+                <a href="{% url 'vendor_list' %}" class="btn btn-success">
+                    <i class="fas fa-store me-2"></i>Shop More
+                </a>
+            </div>
+
+            {% if purchases %}
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Vendor</th>
+                                        <th>Product</th>
+                                        <th>Amount</th>
+                                        <th>Entries Earned</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for purchase in purchases %}
+                                    <tr>
+                                        <td>{{ purchase.purchase_date|date:"M d, Y" }}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                {% if purchase.vendor.logo %}
+                                                    <img src="{{ purchase.vendor.logo.url }}" alt="{{ purchase.vendor.name }}" class="vendor-logo me-2" style="width: 30px; height: 30px;">
+                                                {% endif %}
+                                                {{ purchase.vendor.name }}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {% if purchase.product %}
+                                                {{ purchase.product.name }}
+                                            {% else %}
+                                                <span class="text-muted">General Purchase</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="fw-bold text-success">${{ purchase.amount }}</td>
+                                        <td>
+                                            <span class="badge bg-primary">{{ purchase.giveaway_entries }} entry{{ purchase.giveaway_entries|pluralize }}</span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-4 text-center">
+                                <i class="fas fa-shopping-bag text-success fa-3x mb-3"></i>
+                                <h4 class="fw-bold">Total Purchases</h4>
+                                <p class="h3 text-success mb-0">{{ purchases|length }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-4 text-center">
+                                <i class="fas fa-gift text-primary fa-3x mb-3"></i>
+                                <h4 class="fw-bold">Total Entries</h4>
+                                <p class="h3 text-primary mb-0">
+                                    {% for purchase in purchases %}
+                                        {% if forloop.first %}{{ purchase.giveaway_entries }}{% endif %}
+                                    {% empty %}
+                                        0
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-shopping-bag fa-3x text-muted mb-3"></i>
+                    <h3 class="text-muted">No purchases yet</h3>
+                    <p class="text-muted mb-4">Start shopping with our vendors to earn giveaway entries!</p>
+                    <a href="{% url 'vendor_list' %}" class="btn btn-success btn-lg">
+                        <i class="fas fa-store me-2"></i>Browse Vendors
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

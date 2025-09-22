@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}Vacation Packages - Herbo Bueno Club{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold mb-3">All-Inclusive Vacation Packages</h1>
+            <p class="lead text-muted">Win amazing 7-day all-inclusive vacations to destinations worldwide</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for package in packages %}
+        <div class="col-md-6 col-lg-4">
+            <div class="vacation-card h-100">
+                <img src="{{ package.image.url }}" alt="{{ package.title }}" class="vacation-image card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-2">{{ package.title }}</h5>
+                    <p class="card-text text-muted mb-3">{{ package.description|truncatewords:20 }}</p>
+                    
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-map-marker-alt text-success me-2"></i>
+                                <small class="text-muted">{{ package.location }}</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-calendar text-primary me-2"></i>
+                                <small class="text-muted">{{ package.duration_days }} days</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-globe text-info me-2"></i>
+                                <small class="text-muted">{{ package.get_destination_display }}</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-dollar-sign text-warning me-2"></i>
+                                <small class="fw-bold text-success">${{ package.value }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6 class="fw-bold mb-2">What's Included:</h6>
+                        <p class="text-muted small">{{ package.includes|truncatewords:15 }}</p>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge bg-success">Available</span>
+                        <a href="{% url 'giveaway_list' %}" class="btn btn-outline-success btn-sm">
+                            <i class="fas fa-gift me-1"></i>Enter Giveaway
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <i class="fas fa-plane fa-3x text-muted mb-3"></i>
+            <h3 class="text-muted">No vacation packages available</h3>
+            <p class="text-muted">Check back soon for amazing vacation destinations!</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- How It Works -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card border-0 bg-light">
+                <div class="card-body p-5">
+                    <h2 class="fw-bold text-center mb-4">How to Win a Vacation</h2>
+                    <div class="row g-4">
+                        <div class="col-md-3 text-center">
+                            <div class="step-number bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <span class="fw-bold fs-4">1</span>
+                            </div>
+                            <h5 class="fw-bold mb-3">Join the Club</h5>
+                            <p class="text-muted">Sign up for free and become a member of our exclusive community.</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="step-number bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <span class="fw-bold fs-4">2</span>
+                            </div>
+                            <h5 class="fw-bold mb-3">Shop with Vendors</h5>
+                            <p class="text-muted">Purchase from our curated vendors and earn giveaway entries.</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="step-number bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <span class="fw-bold fs-4">3</span>
+                            </div>
+                            <h5 class="fw-bold mb-3">Enter Giveaways</h5>
+                            <p class="text-muted">Use your entries to participate in vacation giveaways.</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="step-number bg-danger text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <span class="fw-bold fs-4">4</span>
+                            </div>
+                            <h5 class="fw-bold mb-3">Win & Travel</h5>
+                            <p class="text-muted">Claim your prize and enjoy your all-inclusive vacation!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

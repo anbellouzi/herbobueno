@@ -1,0 +1,578 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Herbo Bueno - Join the Ultimate Giveaway Experience{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-background">
+        <div class="hero-overlay"></div>
+    </div>
+    <div class="container position-relative">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-12 text-center">
+                <div class="hero-content">
+                    <h1 class="display-2 fw-bold mb-4 text-white">
+                        Win <span class="text-success">Dream Vacations</span>
+                    </h1>
+                    <p class="lead mb-5 text-white-50 mx-auto" style="max-width: 600px;">
+                        Join Herbo Bueno and earn points by visiting local businesses. 
+                        Use your points to enter giveaways for all-inclusive vacation packages worth thousands of dollars!
+                    </p>
+                    <div class="d-flex gap-3 flex-wrap justify-content-center mb-5">
+                        {% if not user.is_authenticated %}
+                            <a href="{% url 'signup' %}" class="btn btn-success btn-lg px-5 py-3 fw-bold">
+                                Start Your Journey
+                            </a>
+                        {% endif %}
+                        <a href="{% url 'giveaway_list' %}" class="btn btn-outline-light btn-lg px-5 py-3 fw-bold">
+                            View Vacations
+                        </a>
+                    </div>
+                    <div class="hero-stats d-flex gap-5 justify-content-center text-white">
+                        <div class="stat-item text-center">
+                            <div class="h3 fw-bold mb-1">1000+</div>
+                            <small class="text-white-50">Active Members</small>
+                        </div>
+                        <div class="stat-item text-center">
+                            <div class="h3 fw-bold mb-1">$50K+</div>
+                            <small class="text-white-50">Vacations Won</small>
+                        </div>
+                        <div class="stat-item text-center">
+                            <div class="h3 fw-bold mb-1">100+</div>
+                            <small class="text-white-50">Destinations</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 features-bg">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="display-5 fw-bold mb-3 text-white">Why Join Herbo Bueno?</h2>
+                <p class="lead text-white-50">Experience the ultimate in exclusive benefits and amazing prizes</p>
+            </div>
+        </div>
+        
+        <!-- Image Carousel -->
+        <div class="features-carousel">
+            <div class="carousel-container">
+                <div class="carousel-track">
+                    <!-- Vacation Images -->
+                    <div class="carousel-slide">
+                        <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                            <div class="slide-overlay">
+                                <div class="slide-content">
+                                    <h3 class="slide-title">All-Inclusive Vacations</h3>
+                                    <p class="slide-description">Win 7-day all-inclusive vacation packages to thousands of destinations worldwide. Each package valued at $3,000+!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- QR Code Ecosystem Images -->
+                    <div class="carousel-slide">
+                        <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                            <div class="slide-overlay">
+                                <div class="slide-content">
+                                    <h3 class="slide-title">QR Code Ecosystem</h3>
+                                    <p class="slide-description">Visit local businesses, scan QR codes, and earn points for every purchase you make.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Amazing Prizes Images -->
+                    <div class="carousel-slide">
+                        <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1464207687429-7505649dae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                            <div class="slide-overlay">
+                                <div class="slide-content">
+                                    <h3 class="slide-title">Amazing Prizes</h3>
+                                    <p class="slide-description">Win clothing, paraphernalia, concert tickets, VIP access, and exclusive experiences from our vendors.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Golden Ticket Images -->
+                    <div class="carousel-slide">
+                        <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                            <div class="slide-overlay">
+                                <div class="slide-content">
+                                    <h3 class="slide-title">Golden Tickets</h3>
+                                    <p class="slide-description">Find special golden tickets at random business locations for the biggest giveaways and exclusive prizes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Duplicate slides for infinite loop -->
+                    <div class="carousel-slide">
+                        <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                            <div class="slide-overlay">
+                                <div class="slide-content">
+                                    <h3 class="slide-title">All-Inclusive Vacations</h3>
+                                    <p class="slide-description">Win 7-day all-inclusive vacation packages to thousands of destinations worldwide. Each package valued at $3,000+!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                            <div class="slide-overlay">
+                                <div class="slide-content">
+                                    <h3 class="slide-title">QR Code Ecosystem</h3>
+                                    <p class="slide-description">Visit local businesses, scan QR codes, and earn points for every purchase you make.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mobile App Section -->
+<section class="py-5 mobile-app-bg">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="mobile-content">
+                    <h2 class="display-5 fw-bold mb-4">Take Herbo Bueno with you</h2>
+                    <p class="lead text-muted mb-4">
+                        Download our mobile app to discover nearby businesses, scan QR codes on the go, 
+                        and track your points and giveaways from anywhere.
+                    </p>
+                    
+                    <div class="row g-3 mb-4">
+                        <div class="col-12">
+                            <div class="d-flex align-items-center">
+                                <div class="feature-icon-sm bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3">
+                                    <i class="fas fa-map-marker-alt text-success"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Find Nearby Businesses</h6>
+                                    <p class="text-muted mb-0">Discover local businesses in your area with GPS location</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex align-items-center">
+                                <div class="feature-icon-sm bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3">
+                                    <i class="fas fa-qrcode text-primary"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Scan QR Codes</h6>
+                                    <p class="text-muted mb-0">Quickly scan QR codes to earn points instantly</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex align-items-center">
+                                <div class="feature-icon-sm bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3">
+                                    <i class="fas fa-bell text-warning"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Get Notifications</h6>
+                                    <p class="text-muted mb-0">Stay updated on new giveaways and golden ticket locations</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="#" class="btn btn-dark btn-lg px-4">
+                            <i class="fab fa-apple me-2"></i>Download for iOS
+                        </a>
+                        <a href="#" class="btn btn-dark btn-lg px-4">
+                            <i class="fab fa-google-play me-2"></i>Download for Android
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="mobile-showcase">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="app-interface">
+                                <!-- App Header -->
+                                <div class="app-header">
+                                    <div class="d-flex align-items-center justify-content-between p-3">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-leaf text-success me-2"></i>
+                                            <span class="fw-bold text-white">Herbo Bueno</span>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-bell text-white me-2"></i>
+                                            <i class="fas fa-user-circle text-white"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- App Content -->
+                                <div class="app-content p-3">
+                                    <div class="points-card mb-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="text-white mb-1">Your Points</h6>
+                                                <h4 class="text-white fw-bold mb-0">1,250</h4>
+                                            </div>
+                                            <div class="text-end">
+                                                <h6 class="text-white mb-1">Entries</h6>
+                                                <h4 class="text-white fw-bold mb-0">125</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="nearby-businesses mb-3">
+                                        <h6 class="text-white mb-2">Nearby Businesses</h6>
+                                        <div class="business-item">
+                                            <div class="d-flex align-items-center">
+                                                <div class="business-avatar bg-warning rounded-circle d-flex align-items-center justify-content-center me-3">
+                                                    <i class="fas fa-crown text-dark"></i>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <h6 class="text-white mb-1">Green Dreams</h6>
+                                                    <small class="text-white-50">0.2 miles • 50 pts</small>
+                                                </div>
+                                                <span class="badge bg-warning">Golden Ticket</span>
+                                            </div>
+                                        </div>
+                                        <div class="business-item">
+                                            <div class="d-flex align-items-center">
+                                                <div class="business-avatar bg-primary rounded-circle d-flex align-items-center justify-content-center me-3">
+                                                    <i class="fas fa-store text-white"></i>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <h6 class="text-white mb-1">Smoke & Mirrors</h6>
+                                                    <small class="text-white-50">0.5 miles • 10 pts</small>
+                                                </div>
+                                                <span class="badge bg-primary">Regular</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="quick-actions">
+                                        <h6 class="text-white mb-2">Quick Actions</h6>
+                                        <div class="row g-2">
+                                            <div class="col-6">
+                                                <button class="btn btn-success w-100 btn-sm">
+                                                    <i class="fas fa-qrcode me-1"></i>Scan QR
+                                                </button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button class="btn btn-primary w-100 btn-sm">
+                                                    <i class="fas fa-gift me-1"></i>Giveaways
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Current Giveaways Section -->
+<section class="py-5 giveaways-bg">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h2 class="display-5 fw-bold mb-3 text-white">Current Giveaways</h2>
+                <p class="lead text-white-50">Don't miss out on these amazing opportunities</p>
+            </div>
+        </div>
+        
+        <!-- Giveaways Carousel -->
+        <div class="giveaways-carousel">
+            <div class="carousel-container">
+                <div class="carousel-track-right">
+                    <!-- Exotic Travel Packages -->
+                    <div class="carousel-slide">
+                        <div class="giveaway-card">
+                            <div class="card-image" style="background-image: url('https://c.pxhere.com/photos/df/4b/beach_coconut_tree_white_sand_sea_summer_shore_ocean_tropical-757464.jpg!d');">
+                                <div class="card-overlay">
+                                    <div class="card-content">
+                                        <h3 class="card-title">Maldives Paradise</h3>
+                                        <p class="card-description">7-day luxury overwater bungalow experience. Value: $8,500</p>
+                                        <div class="card-badge">Active</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <div class="giveaway-card">
+                            <div class="card-image" style="background-image: url('https://c.pxhere.com/photos/f2/e8/skiing_girl_sun_snow_winter_ski_sport_mountain-453661.jpg!d');">
+                                <div class="card-overlay">
+                                    <div class="card-content">
+                                        <h3 class="card-title">Swiss Alps Retreat</h3>
+                                        <p class="card-description">5-day luxury ski resort with spa treatments. Value: $6,200</p>
+                                        <div class="card-badge">Active</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <div class="giveaway-card">
+                            <div class="card-image" style="background-image: url('https://c.pxhere.com/photos/63/d4/japan_tokyo_architecture_building_disney_sea_tourism_colors_tourists-1004450.jpg!d');">
+                                <div class="card-overlay">
+                                    <div class="card-content">
+                                        <h3 class="card-title">Tokyo Adventure</h3>
+                                        <p class="card-description">10-day cultural immersion in Japan. Value: $7,800</p>
+                                        <div class="card-badge">Active</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Concert Tickets -->
+                    <div class="carousel-slide">
+                        <div class="giveaway-card">
+                            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                                <div class="card-overlay">
+                                    <div class="card-content">
+                                        <h3 class="card-title">Coachella VIP Pass</h3>
+                                        <p class="card-description">3-day VIP festival experience with backstage access. Value: $1,200</p>
+                                        <div class="card-badge">Active</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <div class="giveaway-card">
+                            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                                <div class="card-overlay">
+                                    <div class="card-content">
+                                        <h3 class="card-title">Taylor Swift Concert</h3>
+                                        <p class="card-description">Front row tickets with meet & greet. Value: $2,500</p>
+                                        <div class="card-badge">Active</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <div class="giveaway-card">
+                            <div class="card-image" style="background-image: url('https://c.pxhere.com/photos/8b/e8/electric_dance_music_edm_edc_dj_concert_performance_crowd_neon_lights-1191604.jpg!d');">
+                                <div class="card-overlay">
+                                    <div class="card-content">
+                                        <h3 class="card-title">EDC Las Vegas</h3>
+                                        <p class="card-description">3-day electronic music festival VIP package. Value: $1,800</p>
+                                        <div class="card-badge">Active</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sponsor Merchandise -->
+                    <div class="carousel-slide">
+                        <div class="giveaway-card">
+                            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                                <div class="card-overlay">
+                                    <div class="card-content">
+                                        <h3 class="card-title">Supreme Collection</h3>
+                                        <p class="card-description">Complete seasonal clothing line. Value: $1,500</p>
+                                        <div class="card-badge">Active</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <div class="giveaway-card">
+                            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                                <div class="card-overlay">
+                                    <div class="card-content">
+                                        <h3 class="card-title">Nike Air Jordan Set</h3>
+                                        <p class="card-description">Limited edition sneaker collection. Value: $2,200</p>
+                                        <div class="card-badge">Active</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <div class="giveaway-card">
+                            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1464207687429-7505649dae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                                <div class="card-overlay">
+                                    <div class="card-content">
+                                        <h3 class="card-title">Apple Tech Bundle</h3>
+                                        <p class="card-description">iPhone 15 Pro, AirPods Pro, Apple Watch. Value: $3,000</p>
+                                        <div class="card-badge">Active</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Duplicate slides for infinite loop -->
+                    <div class="carousel-slide">
+                        <div class="giveaway-card">
+                            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                                <div class="card-overlay">
+                                    <div class="card-content">
+                                        <h3 class="card-title">Maldives Paradise</h3>
+                                        <p class="card-description">7-day luxury overwater bungalow experience. Value: $8,500</p>
+                                        <div class="card-badge">Active</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <div class="giveaway-card">
+                            <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1464822759844-d150baec4b0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');">
+                                <div class="card-overlay">
+                                    <div class="card-content">
+                                        <h3 class="card-title">Swiss Alps Retreat</h3>
+                                        <p class="card-description">5-day luxury ski resort with spa treatments. Value: $6,200</p>
+                                        <div class="card-badge">Active</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'giveaway_list' %}" class="btn btn-success btn-lg">
+                <i class="fas fa-gift me-2"></i>View All Giveaways
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-5 how-it-works-bg">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-12">
+                <h2 class="display-5 fw-bold mb-3 text-white">How It Works</h2>
+                <p class="lead text-white-50">Simple steps to start winning amazing prizes</p>
+            </div>
+        </div>
+        
+        <!-- Steps Timeline -->
+        <div class="steps-timeline">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <div class="step-number">1</div>
+                            <div class="step-image">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <h4 class="step-title">Join the Club</h4>
+                            <p class="step-description">Sign up for free and become a member of our exclusive community.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <div class="step-number">2</div>
+                            <div class="step-image">
+                                <i class="fas fa-store"></i>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <h4 class="step-title">Visit & Purchase</h4>
+                            <p class="step-description">Visit local businesses and make purchases for things you need.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <div class="step-number">3</div>
+                            <div class="step-image">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <h4 class="step-title">Scan QR Code</h4>
+                            <p class="step-description">Scan the QR code at the business to earn points.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <div class="step-number">4</div>
+                            <div class="step-image">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <h4 class="step-title">Win & Enjoy</h4>
+                            <p class="step-description">Claim your prizes and enjoy your amazing rewards!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Connection Lines -->
+            <div class="step-connections">
+                <div class="connection-line"></div>
+                <div class="connection-line"></div>
+                <div class="connection-line"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 cta-bg">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="display-5 fw-bold mb-4">Ready to Start Winning?</h2>
+                <p class="lead mb-4">
+                    Join thousands of members who are already enjoying exclusive benefits and winning amazing prizes!
+                </p>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'signup' %}" class="btn btn-light btn-lg px-5">
+                        <i class="fas fa-rocket me-2"></i>Get Started Now
+                    </a>
+                {% else %}
+                    <a href="{% url 'ecosystem_list' %}" class="btn btn-light btn-lg px-5">
+                        <i class="fas fa-store me-2"></i>Explore Ecosystem
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

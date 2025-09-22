@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block title %}Membership Tiers - Herbo Bueno Club{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold mb-3">Choose Your Membership</h1>
+            <p class="lead text-muted">Unlock exclusive benefits and increase your chances of winning</p>
+        </div>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+        {% for tier in tiers %}
+        <div class="col-lg-4 col-md-6">
+            <div class="membership-tier {% if forloop.counter == 2 %}featured{% endif %}">
+                <h3 class="fw-bold mb-3">{{ tier.name }}</h3>
+                <div class="tier-price mb-3">${{ tier.price }}</div>
+                <p class="text-muted mb-4">{{ tier.description }}</p>
+                
+                <div class="mb-4">
+                    <h6 class="fw-bold mb-3">Benefits:</h6>
+                    <div class="text-start">
+                        {{ tier.benefits|linebreaks }}
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <i class="fas fa-gift text-success me-2"></i>
+                        <span class="fw-bold">Giveaway Multiplier: {{ tier.giveaway_multiplier }}x</span>
+                    </div>
+                </div>
+                
+                {% if user.is_authenticated %}
+                    <a href="{% url 'join_membership' tier.id %}" class="btn btn-success btn-lg w-100">
+                        <i class="fas fa-crown me-2"></i>Join {{ tier.name }}
+                    </a>
+                {% else %}
+                    <a href="{% url 'signup' %}" class="btn btn-outline-success btn-lg w-100">
+                        <i class="fas fa-user-plus me-2"></i>Sign Up First
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <i class="fas fa-crown fa-3x text-muted mb-3"></i>
+            <h3 class="text-muted">No membership tiers available</h3>
+            <p class="text-muted">Check back soon for membership options.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Benefits Comparison -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                    <h3 class="fw-bold mb-0 text-center">Membership Benefits Comparison</h3>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th class="text-center">Basic</th>
+                                    <th class="text-center">Premium</th>
+                                    <th class="text-center">VIP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Giveaway Entries</strong></td>
+                                    <td class="text-center">1x</td>
+                                    <td class="text-center">2x</td>
+                                    <td class="text-center">3x</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Vendor Discounts</strong></td>
+                                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Early Access</strong></td>
+                                    <td class="text-center"><i class="fas fa-times text-muted"></i></td>
+                                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>VIP Events</strong></td>
+                                    <td class="text-center"><i class="fas fa-times text-muted"></i></td>
+                                    <td class="text-center"><i class="fas fa-times text-muted"></i></td>
+                                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Priority Support</strong></td>
+                                    <td class="text-center"><i class="fas fa-times text-muted"></i></td>
+                                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="fw-bold text-center mb-4">Frequently Asked Questions</h2>
+            <div class="accordion" id="membershipFAQ">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            How do I earn giveaway entries?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#membershipFAQ">
+                        <div class="accordion-body">
+                            You earn giveaway entries by making purchases from our vendors. Each purchase gives you 1 entry, 
+                            and your membership tier multiplies these entries (Premium: 2x, VIP: 3x).
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            Can I change my membership tier?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#membershipFAQ">
+                        <div class="accordion-body">
+                            Yes! You can upgrade your membership tier at any time. The new benefits will be applied 
+                            immediately, and you'll be charged the prorated amount.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                            What happens if I win a prize?
+                        </button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#membershipFAQ">
+                        <div class="accordion-body">
+                            Congratulations! We'll contact you via email and phone to arrange prize delivery. 
+                            Vacation packages will be coordinated with our travel partners, and vendor prizes 
+                            will be shipped directly to you.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

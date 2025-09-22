@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Current Giveaways - Herbo Bueno Club{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold mb-3">Current Giveaways</h1>
+            <p class="lead text-muted">Enter these amazing giveaways and win incredible prizes!</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for giveaway in giveaways %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card giveaway-card h-100">
+                {% if giveaway.giveaway_type == 'vacation' and giveaway.vacation_package.image %}
+                    <img src="{{ giveaway.vacation_package.image.url }}" alt="{{ giveaway.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                {% elif giveaway.giveaway_type == 'vendor_prize' and giveaway.vendor_prize.image %}
+                    <img src="{{ giveaway.vendor_prize.image.url }}" alt="{{ giveaway.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                {% else %}
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                        {% if giveaway.giveaway_type == 'vacation' %}
+                            <i class="fas fa-plane text-success fa-3x"></i>
+                        {% else %}
+                            <i class="fas fa-gift text-primary fa-3x"></i>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                
+                <div class="card-body">
+                    <h5 class="card-title fw-bold mb-2">{{ giveaway.title }}</h5>
+                    <p class="card-text text-muted mb-3">{{ giveaway.description|truncatewords:15 }}</p>
+                    
+                    <div class="mb-3">
+                        {% if giveaway.giveaway_type == 'vacation' %}
+                            <span class="badge bg-success me-2">
+                                <i class="fas fa-plane me-1"></i>Vacation Package
+                            </span>
+                            <span class="text-success fw-bold">Value: ${{ giveaway.vacation_package.value }}</span>
+                        {% else %}
+                            <span class="badge bg-primary me-2">
+                                <i class="fas fa-gift me-1"></i>Vendor Prize
+                            </span>
+                            <span class="text-primary fw-bold">Value: ${{ giveaway.vendor_prize.value }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            Ends: {{ giveaway.end_date|date:"M d, Y" }}
+                        </small>
+                        <a href="{% url 'giveaway_detail' giveaway.id %}" class="btn btn-success btn-sm">
+                            <i class="fas fa-eye me-1"></i>View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <i class="fas fa-gift fa-3x text-muted mb-3"></i>
+            <h3 class="text-muted">No active giveaways</h3>
+            <p class="text-muted">Check back soon for new amazing giveaways!</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Quick Links -->
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4 text-center">
+                    <i class="fas fa-plane text-success fa-3x mb-3"></i>
+                    <h5 class="fw-bold mb-3">Vacation Packages</h5>
+                    <p class="text-muted mb-3">Explore all available vacation destinations</p>
+                    <a href="{% url 'vacation_packages' %}" class="btn btn-outline-success">View Packages</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4 text-center">
+                    <i class="fas fa-trophy text-warning fa-3x mb-3"></i>
+                    <h5 class="fw-bold mb-3">Vendor Prizes</h5>
+                    <p class="text-muted mb-3">Check out amazing prizes from our vendors</p>
+                    <a href="{% url 'vendor_prizes' %}" class="btn btn-outline-warning">View Prizes</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4 text-center">
+                    <i class="fas fa-user text-primary fa-3x mb-3"></i>
+                    <h5 class="fw-bold mb-3">My Entries</h5>
+                    <p class="text-muted mb-3">Track your giveaway entries and winnings</p>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'my_entries' %}" class="btn btn-outline-primary">View Entries</a>
+                    {% else %}
+                        <a href="{% url 'signup' %}" class="btn btn-outline-primary">Join Now</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Herbo Bueno Club{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="{% load static %}{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'home' %}">
+                <i class="fas fa-leaf text-success me-2"></i>Herbo Bueno
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="{% url 'ecosystem_list' %}">Ecosystem</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="{% url 'giveaway_list' %}">Giveaways</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="{% url 'vacation_packages' %}">Vacations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="{% url 'membership_tiers' %}">Membership</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="{% url 'about' %}">About</a>
+                    </li>
+                </ul>
+                
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle fw-medium" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-circle me-1"></i>{{ user.username }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{% url 'profile' %}"><i class="fas fa-user me-2"></i>Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'my_scans' %}"><i class="fas fa-qrcode me-2"></i>My Scans</a></li>
+                                <li><a class="dropdown-item" href="{% url 'my_entries' %}"><i class="fas fa-gift me-2"></i>My Entries</a></li>
+                                <li><a class="dropdown-item" href="{% url 'my_membership' %}"><i class="fas fa-crown me-2"></i>My Membership</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-success ms-2 px-4 py-2 fw-medium" href="{% url 'signup' %}">Join Now</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        {% if messages %}
+            <div class="container mt-5 pt-4">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-leaf text-success me-2"></i>Herbo Bueno
+                    </h5>
+                    <p class="text-muted">Join our exclusive ecosystem for amazing giveaways, local business partnerships, and incredible vacation packages.</p>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'home' %}" class="text-muted text-decoration-none">Home</a></li>
+                        <li><a href="{% url 'ecosystem_list' %}" class="text-muted text-decoration-none">Ecosystem</a></li>
+                        <li><a href="{% url 'giveaway_list' %}" class="text-muted text-decoration-none">Giveaways</a></li>
+                        <li><a href="{% url 'membership_tiers' %}" class="text-muted text-decoration-none">Membership</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h6 class="fw-bold mb-3">Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'about' %}" class="text-muted text-decoration-none">About</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-muted text-decoration-none">Contact</a></li>
+                        <li><a href="{% url 'business_signup' %}" class="text-muted text-decoration-none">Join Ecosystem</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6 class="fw-bold mb-3">Connect With Us</h6>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-muted"><i class="fab fa-facebook-f fa-lg"></i></a>
+                        <a href="#" class="text-muted"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-muted"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-muted"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="text-muted mb-0">&copy; 2024 Herbo Bueno. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-muted text-decoration-none me-3">Privacy Policy</a>
+                    <a href="#" class="text-muted text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% load static %}{% static 'js/main.js' %}"></script>
+</body>
+</html>
+

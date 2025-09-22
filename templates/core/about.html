@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - Herbo Bueno{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold mb-4">About Herbo Bueno</h1>
+                <p class="lead text-muted">Your gateway to exclusive experiences and amazing prizes</p>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-5">
+                <div class="card-body p-5">
+                    <h2 class="fw-bold mb-4">Our Mission</h2>
+                    <p class="mb-4">
+                        At Herbo Bueno, we believe that everyone deserves access to amazing experiences and exclusive opportunities. 
+                        We've created a unique ecosystem that connects our members with local businesses while offering incredible 
+                        giveaways and vacation packages.
+                    </p>
+                    <p class="mb-4">
+                        Our mission is to create a community where members can discover new products, support local businesses, 
+                        and have the chance to win life-changing prizes including all-inclusive vacations, exclusive merchandise, 
+                        and VIP experiences.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="text-center mb-3">
+                                <i class="fas fa-heart text-success fa-3x"></i>
+                            </div>
+                            <h4 class="fw-bold text-center mb-3">Community First</h4>
+                            <p class="text-muted text-center">
+                                We prioritize our community's needs and create opportunities that benefit everyone involved.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <div class="text-center mb-3">
+                                <i class="fas fa-shield-alt text-primary fa-3x"></i>
+                            </div>
+                            <h4 class="fw-bold text-center mb-3">Trust & Transparency</h4>
+                            <p class="text-muted text-center">
+                                All our giveaways and processes are transparent and fair, ensuring trust in every interaction.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-5">
+                <div class="card-body p-5">
+                    <h2 class="fw-bold mb-4">How We Started</h2>
+                    <p class="mb-4">
+                        Herbo Bueno was founded with a simple idea: create an ecosystem where people could discover 
+                        amazing products from local businesses while having the chance to win incredible prizes. 
+                        What started as a small community has grown into a thriving ecosystem of members, businesses, and partners.
+                    </p>
+                    <p class="mb-4">
+                        Today, we're proud to offer thousands of vacation destinations, exclusive business partnerships, 
+                        and regular giveaways that have changed the lives of our members.
+                    </p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <h2 class="fw-bold mb-4">Join Our Community</h2>
+                <p class="lead mb-4">Ready to become part of something amazing?</p>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'signup' %}" class="btn btn-success btn-lg px-5">
+                        <i class="fas fa-user-plus me-2"></i>Join Now
+                    </a>
+                {% else %}
+                    <a href="{% url 'ecosystem_list' %}" class="btn btn-success btn-lg px-5">
+                        <i class="fas fa-store me-2"></i>Explore Ecosystem
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

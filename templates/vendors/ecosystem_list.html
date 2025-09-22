@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block title %}Business Ecosystem - Herbo Bueno{% endblock %}
+
+{% block content %}
+<div class="ecosystem-bg">
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold mb-3">Business Ecosystem</h1>
+            <p class="lead text-muted">Discover local businesses, scan QR codes, and earn points for amazing giveaways!</p>
+        </div>
+    </div>
+
+    <!-- Search and Filter -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <form method="get" class="d-flex">
+                <input type="search" name="search" class="form-control me-2" placeholder="Search businesses or cities..." value="{{ search_query }}">
+                <button type="submit" class="btn btn-outline-success">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+        <div class="col-md-3">
+            <form method="get" class="d-flex">
+                <select name="category" class="form-select me-2">
+                    <option value="">All Categories</option>
+                    {% for value, label in categories %}
+                        <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-outline-primary">
+                    <i class="fas fa-filter"></i>
+                </button>
+            </form>
+        </div>
+        <div class="col-md-3">
+            <form method="get" class="d-flex">
+                <select name="city" class="form-select me-2">
+                    <option value="">All Cities</option>
+                    {% for city in cities %}
+                        <option value="{{ city }}" {% if selected_city == city %}selected{% endif %}>{{ city }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-outline-info">
+                    <i class="fas fa-map-marker-alt"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Business Grid -->
+    <div class="row g-4">
+        {% for business in businesses %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card business-card h-100 border-0 shadow-sm">
+                {% if business.banner_image %}
+                    <img src="{{ business.banner_image.url }}" alt="{{ business.name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                {% else %}
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-store fa-3x text-muted"></i>
+                    </div>
+                {% endif %}
+                
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        {% if business.logo %}
+                            <img src="{{ business.logo.url }}" alt="{{ business.name }}" class="business-logo me-3">
+                        {% endif %}
+                        <div>
+                            <h5 class="card-title fw-bold mb-1">{{ business.name }}</h5>
+                            <span class="badge bg-primary">{{ business.get_category_display }}</span>
+                        </div>
+                    </div>
+                    
+                    <p class="card-text text-muted mb-3">{{ business.description|truncatewords:20 }}</p>
+                    
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-map-marker-alt text-success me-2"></i>
+                                <small class="text-muted">{{ business.city }}, {{ business.state }}</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-star text-warning me-2"></i>
+                                <small class="text-muted">{{ business.points_per_visit }} pts</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{% url 'business_detail' business.id %}" class="btn btn-success">
+                            <i class="fas fa-eye me-1"></i>View Details
+                        </a>
+                        {% if business.has_golden_ticket %}
+                            <span class="badge bg-warning">
+                                <i class="fas fa-crown me-1"></i>Golden Ticket
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <i class="fas fa-store fa-3x text-muted mb-3"></i>
+            <h3 class="text-muted">No businesses found</h3>
+            <p class="text-muted">Try adjusting your search or filter criteria.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card border-0 bg-light">
+                <div class="card-body p-5">
+                    <h2 class="fw-bold text-center mb-4">How the Ecosystem Works</h2>
+                    <div class="row g-4">
+                        <div class="col-md-3 text-center">
+                            <div class="step-number bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <span class="fw-bold fs-4">1</span>
+                            </div>
+                            <h5 class="fw-bold mb-3">Find Businesses</h5>
+                            <p class="text-muted">Discover local businesses in your area that are part of our ecosystem.</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="step-number bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <span class="fw-bold fs-4">2</span>
+                            </div>
+                            <h5 class="fw-bold mb-3">Make a Purchase</h5>
+                            <p class="text-muted">Visit the business and make a purchase for things you need.</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="step-number bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <span class="fw-bold fs-4">3</span>
+                            </div>
+                            <h5 class="fw-bold mb-3">Scan QR Code</h5>
+                            <p class="text-muted">Scan the special QR code at the business to earn points.</p>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="step-number bg-danger text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                                <span class="fw-bold fs-4">4</span>
+                            </div>
+                            <h5 class="fw-bold mb-3">Win Prizes</h5>
+                            <p class="text-muted">Use your points to enter giveaways and win amazing prizes!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Golden Ticket CTA -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card border-0 bg-warning text-dark">
+                <div class="card-body p-4 text-center">
+                    <h3 class="fw-bold mb-3">
+                        <i class="fas fa-crown me-2"></i>Golden Ticket Locations
+                    </h3>
+                    <p class="lead mb-3">Some businesses have special golden tickets that give you 5x the points!</p>
+                    <a href="{% url 'golden_ticket_locations' %}" class="btn btn-dark btn-lg">
+                        <i class="fas fa-map-marked-alt me-2"></i>Find Golden Tickets
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Join Ecosystem CTA -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card border-0 bg-success text-white">
+                <div class="card-body p-5 text-center">
+                    <h2 class="fw-bold mb-3">Want to Join Our Ecosystem?</h2>
+                    <p class="lead mb-4">Join our network of local businesses and reach thousands of engaged customers.</p>
+                    <a href="{% url 'business_signup' %}" class="btn btn-light btn-lg px-4">
+                        <i class="fas fa-plus me-2"></i>Join Ecosystem
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

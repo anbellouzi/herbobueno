@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ giveaway.title }} - Herbo Bueno Club{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Giveaway Header -->
+            <div class="card border-0 shadow-sm mb-4">
+                {% if giveaway.giveaway_type == 'vacation' and giveaway.vacation_package.image %}
+                    <img src="{{ giveaway.vacation_package.image.url }}" alt="{{ giveaway.title }}" class="card-img-top" style="height: 400px; object-fit: cover;">
+                {% elif giveaway.giveaway_type == 'vendor_prize' and giveaway.vendor_prize.image %}
+                    <img src="{{ giveaway.vendor_prize.image.url }}" alt="{{ giveaway.title }}" class="card-img-top" style="height: 400px; object-fit: cover;">
+                {% endif %}
+                
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h1 class="display-6 fw-bold mb-2">{{ giveaway.title }}</h1>
+                            {% if giveaway.giveaway_type == 'vacation' %}
+                                <span class="badge bg-success fs-6">
+                                    <i class="fas fa-plane me-1"></i>Vacation Package
+                                </span>
+                            {% else %}
+                                <span class="badge bg-primary fs-6">
+                                    <i class="fas fa-gift me-1"></i>Vendor Prize
+                                </span>
+                            {% endif %}
+                        </div>
+                        <div class="text-end">
+                            {% if giveaway.is_open %}
+                                <span class="badge bg-success fs-6">Active</span>
+                            {% else %}
+                                <span class="badge bg-secondary fs-6">Closed</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <p class="lead text-muted mb-4">{{ giveaway.description }}</p>
+                    
+                    <!-- Prize Details -->
+                    {% if giveaway.giveaway_type == 'vacation' %}
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-map-marker-alt text-success fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="fw-bold mb-0">Destination</h6>
+                                        <p class="text-muted mb-0">{{ giveaway.vacation_package.location }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-calendar text-primary fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="fw-bold mb-0">Duration</h6>
+                                        <p class="text-muted mb-0">{{ giveaway.vacation_package.duration_days }} days</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-dollar-sign text-warning fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="fw-bold mb-0">Value</h6>
+                                        <p class="text-muted mb-0">${{ giveaway.vacation_package.value }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-clock text-info fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="fw-bold mb-0">Ends</h6>
+                                        <p class="text-muted mb-0">{{ giveaway.end_date|date:"M d, Y" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5 class="fw-bold mb-3">What's Included</h5>
+                            <div class="bg-light p-3 rounded">
+                                {{ giveaway.vacation_package.includes|linebreaks }}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-store text-primary fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="fw-bold mb-0">Vendor</h6>
+                                        <p class="text-muted mb-0">{{ giveaway.vendor_prize.vendor.name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-dollar-sign text-warning fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="fw-bold mb-0">Value</h6>
+                                        <p class="text-muted mb-0">${{ giveaway.vendor_prize.value }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-tag text-info fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="fw-bold mb-0">Type</h6>
+                                        <p class="text-muted mb-0">{{ giveaway.vendor_prize.get_prize_type_display }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-clock text-danger fa-2x me-3"></i>
+                                    <div>
+                                        <h6 class="fw-bold mb-0">Ends</h6>
+                                        <p class="text-muted mb-0">{{ giveaway.end_date|date:"M d, Y" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Terms and Conditions -->
+            {% if giveaway.giveaway_type == 'vacation' %}
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">Terms & Conditions</h5>
+                    <div class="bg-light p-3 rounded">
+                        {{ giveaway.vacation_package.terms_conditions|linebreaks }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Entry Form -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-3">
+                        <i class="fas fa-ticket-alt text-success me-2"></i>Enter Giveaway
+                    </h4>
+                    
+                    {% if giveaway.is_open %}
+                        {% if user.is_authenticated %}
+                            {% if user_entry %}
+                                <div class="alert alert-success">
+                                    <i class="fas fa-check-circle me-2"></i>
+                                    You have {{ user_entry.entries_count }} entry(ies) in this giveaway!
+                                </div>
+                            {% endif %}
+                            
+                            <div class="mb-3">
+                                <p class="text-muted">Total entries: <strong>{{ total_entries }}</strong></p>
+                            </div>
+                            
+                            <form method="post" action="{% url 'enter_giveaway' giveaway.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-success w-100 btn-lg">
+                                    <i class="fas fa-gift me-2"></i>Enter Giveaway
+                                </button>
+                            </form>
+                            
+                            <div class="mt-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    You need to make purchases from our vendors to earn entries.
+                                </small>
+                            </div>
+                        {% else %}
+                            <div class="text-center">
+                                <p class="text-muted mb-3">You need to be logged in to enter giveaways.</p>
+                                <a href="{% url 'login' %}" class="btn btn-success">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="alert alert-secondary">
+                            <i class="fas fa-clock me-2"></i>
+                            This giveaway is currently closed.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Giveaway Info -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">Giveaway Information</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-calendar text-muted me-2"></i>
+                            <strong>Start Date:</strong> {{ giveaway.start_date|date:"M d, Y" }}
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-calendar text-muted me-2"></i>
+                            <strong>End Date:</strong> {{ giveaway.end_date|date:"M d, Y" }}
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-users text-muted me-2"></i>
+                            <strong>Total Entries:</strong> {{ total_entries }}
+                        </li>
+                        {% if giveaway.max_entries %}
+                        <li class="mb-2">
+                            <i class="fas fa-limit text-muted me-2"></i>
+                            <strong>Max Entries:</strong> {{ giveaway.max_entries }}
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

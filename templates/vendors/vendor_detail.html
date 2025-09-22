@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ vendor.name }} - Herbo Bueno Club{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- Vendor Header -->
+            <div class="card border-0 shadow-sm mb-4">
+                {% if vendor.banner_image %}
+                    <img src="{{ vendor.banner_image.url }}" alt="{{ vendor.name }}" class="card-img-top" style="height: 300px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        {% if vendor.logo %}
+                            <img src="{{ vendor.logo.url }}" alt="{{ vendor.name }}" class="vendor-logo me-3">
+                        {% endif %}
+                        <div>
+                            <h1 class="display-6 fw-bold mb-1">{{ vendor.name }}</h1>
+                            <span class="badge bg-primary fs-6">{{ vendor.get_category_display }}</span>
+                        </div>
+                    </div>
+                    <p class="lead text-muted">{{ vendor.description }}</p>
+                    
+                    <div class="d-flex gap-3 flex-wrap">
+                        {% if vendor.website %}
+                            <a href="{{ vendor.website }}" target="_blank" class="btn btn-outline-primary">
+                                <i class="fas fa-external-link-alt me-2"></i>Visit Website
+                            </a>
+                        {% endif %}
+                        {% if vendor.email %}
+                            <a href="mailto:{{ vendor.email }}" class="btn btn-outline-success">
+                                <i class="fas fa-envelope me-2"></i>Contact
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products -->
+            {% if products %}
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                    <h3 class="fw-bold mb-0">Available Products</h3>
+                </div>
+                <div class="card-body p-0">
+                    <div class="row g-0">
+                        {% for product in products %}
+                        <div class="col-md-6 border-end border-bottom">
+                            <div class="p-4">
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded mb-3" style="height: 150px; object-fit: cover; width: 100%;">
+                                {% endif %}
+                                <h5 class="fw-bold mb-2">{{ product.name }}</h5>
+                                <p class="text-muted mb-3">{{ product.description|truncatewords:15 }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 text-success fw-bold mb-0">${{ product.price }}</span>
+                                    <button class="btn btn-success btn-sm add-to-cart" data-product="{{ product.name }}" data-price="{{ product.price }}">
+                                        <i class="fas fa-shopping-cart me-1"></i>Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="col-lg-4">
+            <!-- Purchase Form -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-3">
+                        <i class="fas fa-shopping-cart text-success me-2"></i>Make a Purchase
+                    </h4>
+                    <p class="text-muted mb-3">Purchase from {{ vendor.name }} and earn giveaway entries!</p>
+                    
+                    {% if user.is_authenticated %}
+                        <form method="post" action="{% url 'make_purchase' vendor.id %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="amount" class="form-label">Purchase Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="amount" name="amount" step="0.01" min="0.01" required>
+                                </div>
+                            </div>
+                            
+                            {% if products %}
+                            <div class="mb-3">
+                                <label for="product" class="form-label">Select Product (Optional)</label>
+                                <select class="form-select" id="product" name="product_id">
+                                    <option value="">General Purchase</option>
+                                    {% for product in products %}
+                                        <option value="{{ product.id }}">{{ product.name }} - ${{ product.price }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            {% endif %}
+                            
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Each purchase earns you 1 giveaway entry!
+                            </div>
+                            
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="fas fa-credit-card me-2"></i>Complete Purchase
+                            </button>
+                        </form>
+                    {% else %}
+                        <div class="text-center">
+                            <p class="text-muted mb-3">You need to be logged in to make purchases.</p>
+                            <a href="{% url 'login' %}" class="btn btn-success">
+                                <i class="fas fa-sign-in-alt me-2"></i>Login
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Vendor Info -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">Vendor Information</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-tag text-muted me-2"></i>
+                            <strong>Category:</strong> {{ vendor.get_category_display }}
+                        </li>
+                        {% if vendor.email %}
+                        <li class="mb-2">
+                            <i class="fas fa-envelope text-muted me-2"></i>
+                            <strong>Email:</strong> {{ vendor.email }}
+                        </li>
+                        {% endif %}
+                        {% if vendor.phone %}
+                        <li class="mb-2">
+                            <i class="fas fa-phone text-muted me-2"></i>
+                            <strong>Phone:</strong> {{ vendor.phone }}
+                        </li>
+                        {% endif %}
+                        <li class="mb-2">
+                            <i class="fas fa-calendar text-muted me-2"></i>
+                            <strong>Joined:</strong> {{ vendor.created_at|date:"F Y" }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

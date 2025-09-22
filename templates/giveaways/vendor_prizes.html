@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}Vendor Prizes - Herbo Bueno Club{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold mb-3">Vendor Prizes</h1>
+            <p class="lead text-muted">Win amazing prizes from our premium vendors</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for prize in prizes %}
+        <div class="col-md-6 col-lg-4">
+            <div class="prize-card h-100">
+                <img src="{{ prize.image.url }}" alt="{{ prize.name }}" class="prize-image card-img-top">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        {% if prize.vendor.logo %}
+                            <img src="{{ prize.vendor.logo.url }}" alt="{{ prize.vendor.name }}" class="vendor-logo me-3">
+                        {% endif %}
+                        <div>
+                            <h5 class="card-title fw-bold mb-1">{{ prize.name }}</h5>
+                            <p class="text-muted mb-0">{{ prize.vendor.name }}</p>
+                        </div>
+                    </div>
+                    
+                    <p class="card-text text-muted mb-3">{{ prize.description|truncatewords:15 }}</p>
+                    
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-tag text-primary me-2"></i>
+                                <small class="text-muted">{{ prize.get_prize_type_display }}</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-dollar-sign text-warning me-2"></i>
+                                <small class="fw-bold text-success">${{ prize.value }}</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-box text-info me-2"></i>
+                                <small class="text-muted">{{ prize.quantity_available }} available</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-calendar text-secondary me-2"></i>
+                                <small class="text-muted">{{ prize.created_at|date:"M Y" }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        {% if prize.quantity_available > 0 %}
+                            <span class="badge bg-success">Available</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Out of Stock</span>
+                        {% endif %}
+                        <a href="{% url 'giveaway_list' %}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-gift me-1"></i>Enter Giveaway
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <i class="fas fa-gift fa-3x text-muted mb-3"></i>
+            <h3 class="text-muted">No vendor prizes available</h3>
+            <p class="text-muted">Check back soon for amazing prizes from our vendors!</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Prize Categories -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="fw-bold text-center mb-4">Prize Categories</h2>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4 text-center">
+                            <i class="fas fa-tshirt text-primary fa-3x mb-3"></i>
+                            <h5 class="fw-bold">Clothing</h5>
+                            <p class="text-muted">Exclusive apparel and accessories from top brands</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4 text-center">
+                            <i class="fas fa-cannabis text-success fa-3x mb-3"></i>
+                            <h5 class="fw-bold">Paraphernalia</h5>
+                            <p class="text-muted">Premium smoking accessories and equipment</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4 text-center">
+                            <i class="fas fa-music text-warning fa-3x mb-3"></i>
+                            <h5 class="fw-bold">Concert Tickets</h5>
+                            <p class="text-muted">VIP tickets to exclusive concerts and events</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4 text-center">
+                            <i class="fas fa-crown text-danger fa-3x mb-3"></i>
+                            <h5 class="fw-bold">VIP Access</h5>
+                            <p class="text-muted">Exclusive VIP experiences and club access</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

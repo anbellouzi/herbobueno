@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Vendors - Herbo Bueno Club{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold mb-3">Our Premium Vendors</h1>
+            <p class="lead text-muted">Shop with our curated vendors and earn giveaway entries with every purchase</p>
+        </div>
+    </div>
+
+    <!-- Search and Filter -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <form method="get" class="d-flex">
+                <input type="search" name="search" class="form-control me-2" placeholder="Search vendors..." value="{{ search_query }}">
+                <button type="submit" class="btn btn-outline-success">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <form method="get" class="d-flex">
+                <select name="category" class="form-select me-2">
+                    <option value="">All Categories</option>
+                    {% for value, label in categories %}
+                        <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-outline-primary">
+                    <i class="fas fa-filter"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Vendor Grid -->
+    <div class="row g-4">
+        {% for vendor in vendors %}
+        <div class="col-md-6 col-lg-4">
+            <div class="vendor-card h-100">
+                {% if vendor.banner_image %}
+                    <img src="{{ vendor.banner_image.url }}" alt="{{ vendor.name }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                {% else %}
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-store fa-3x text-muted"></i>
+                    </div>
+                {% endif %}
+                
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        {% if vendor.logo %}
+                            <img src="{{ vendor.logo.url }}" alt="{{ vendor.name }}" class="vendor-logo me-3">
+                        {% endif %}
+                        <div>
+                            <h5 class="card-title fw-bold mb-1">{{ vendor.name }}</h5>
+                            <span class="badge bg-primary">{{ vendor.get_category_display }}</span>
+                        </div>
+                    </div>
+                    
+                    <p class="card-text text-muted mb-3">{{ vendor.description|truncatewords:20 }}</p>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="{% url 'vendor_detail' vendor.id %}" class="btn btn-success">
+                            <i class="fas fa-eye me-1"></i>View Details
+                        </a>
+                        {% if vendor.website %}
+                            <a href="{{ vendor.website }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <i class="fas fa-store fa-3x text-muted mb-3"></i>
+            <h3 class="text-muted">No vendors found</h3>
+            <p class="text-muted">Try adjusting your search or filter criteria.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Become a Vendor CTA -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card border-0 bg-success text-white">
+                <div class="card-body p-5 text-center">
+                    <h2 class="fw-bold mb-3">Want to Become a Vendor?</h2>
+                    <p class="lead mb-4">Join our network of premium vendors and reach thousands of engaged customers.</p>
+                    <a href="{% url 'vendor_signup' %}" class="btn btn-light btn-lg px-4">
+                        <i class="fas fa-plus me-2"></i>Apply Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block title %}My QR Scans - Herbo Bueno Club{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="display-5 fw-bold">My QR Scans</h1>
+                <a href="{% url 'ecosystem_list' %}" class="btn btn-success">
+                    <i class="fas fa-store me-2"></i>Find Businesses
+                </a>
+            </div>
+
+            <!-- Points Summary -->
+            {% if user_points %}
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4 text-center">
+                            <i class="fas fa-star text-warning fa-3x mb-3"></i>
+                            <h4 class="fw-bold">Total Points</h4>
+                            <p class="h3 text-warning mb-0">{{ user_points.total_points }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4 text-center">
+                            <i class="fas fa-gift text-primary fa-3x mb-3"></i>
+                            <h4 class="fw-bold">Giveaway Entries</h4>
+                            <p class="h3 text-primary mb-0">{{ user_points.giveaway_entries }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4 text-center">
+                            <i class="fas fa-qrcode text-success fa-3x mb-3"></i>
+                            <h4 class="fw-bold">Total Scans</h4>
+                            <p class="h3 text-success mb-0">{{ scans|length }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if scans %}
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Business</th>
+                                        <th>Location</th>
+                                        <th>Points Earned</th>
+                                        <th>Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for scan in scans %}
+                                    <tr>
+                                        <td>{{ scan.scan_date|date:"M d, Y" }}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                {% if scan.business.logo %}
+                                                    <img src="{{ scan.business.logo.url }}" alt="{{ scan.business.name }}" class="business-logo me-2" style="width: 30px; height: 30px;">
+                                                {% endif %}
+                                                <div>
+                                                    <div class="fw-bold">{{ scan.business.name }}</div>
+                                                    <small class="text-muted">{{ scan.business.get_category_display }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <small class="text-muted">{{ scan.business.city }}, {{ scan.business.state }}</small>
+                                        </td>
+                                        <td>
+                                            <span class="fw-bold text-success">+{{ scan.points_earned }}</span>
+                                        </td>
+                                        <td>
+                                            {% if scan.is_golden_ticket %}
+                                                <span class="badge bg-warning">
+                                                    <i class="fas fa-crown me-1"></i>Golden Ticket
+                                                </span>
+                                            {% else %}
+                                                <span class="badge bg-primary">Regular</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3">
+                                    <i class="fas fa-crown text-warning me-2"></i>Golden Ticket Locations
+                                </h5>
+                                <p class="text-muted mb-3">Find businesses with golden tickets for 5x points!</p>
+                                <a href="{% url 'golden_ticket_locations' %}" class="btn btn-outline-warning">Find Golden Tickets</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3">
+                                    <i class="fas fa-gift text-primary me-2"></i>Enter Giveaways
+                                </h5>
+                                <p class="text-muted mb-3">Use your points to enter amazing giveaways!</p>
+                                <a href="{% url 'giveaway_list' %}" class="btn btn-outline-primary">View Giveaways</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-qrcode fa-3x text-muted mb-3"></i>
+                    <h3 class="text-muted">No QR scans yet</h3>
+                    <p class="text-muted mb-4">Start visiting businesses in our ecosystem and scan their QR codes to earn points!</p>
+                    <a href="{% url 'ecosystem_list' %}" class="btn btn-success btn-lg">
+                        <i class="fas fa-store me-2"></i>Explore Ecosystem
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

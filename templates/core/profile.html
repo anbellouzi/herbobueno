@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}My Profile - Herbo Bueno{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        {% if profile.profile_picture %}
+                            <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-picture mb-3">
+                        {% else %}
+                            <div class="profile-picture bg-light d-flex align-items-center justify-content-center mb-3">
+                                <i class="fas fa-user fa-3x text-muted"></i>
+                            </div>
+                        {% endif %}
+                        <h1 class="display-6 fw-bold mb-2">{{ user.get_full_name|default:user.username }}</h1>
+                        <p class="text-muted">Member since {{ user.date_joined|date:"F Y" }}</p>
+                    </div>
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-save me-2"></i>Update Profile
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row g-4 mt-4">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold mb-3">
+                                <i class="fas fa-qrcode text-success me-2"></i>My Scans
+                            </h5>
+                            <p class="text-muted mb-3">View your QR scan history and earned points</p>
+                            <a href="{% url 'my_scans' %}" class="btn btn-outline-success">View Scans</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold mb-3">
+                                <i class="fas fa-gift text-primary me-2"></i>My Entries
+                            </h5>
+                            <p class="text-muted mb-3">Check your giveaway entries and winnings</p>
+                            <a href="{% url 'my_entries' %}" class="btn btn-outline-primary">View Entries</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
