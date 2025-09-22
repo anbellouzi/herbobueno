@@ -66,13 +66,17 @@ WSGI_APPLICATION = 'herbo_bueno.wsgi.application'
 # Database
 import os
 
-# Use PostgreSQL for Railway, SQLite for local development
-if os.environ.get('DATABASE_URL'):
-    # Railway PostgreSQL configuration
+# Check if we're on Railway
+IS_RAILWAY = os.environ.get('RAILWAY_ENVIRONMENT') or os.environ.get('DATABASE_URL')
+
+if IS_RAILWAY:
+    # Railway PostgreSQL configuration - Force PostgreSQL
     import dj_database_url
     DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL', 'postgresql://postgres:password@localhost:5432/herbobueno'))
     }
+    # Ensure we're using PostgreSQL
+    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 else:
     # Local SQLite configuration
     DATABASES = {
