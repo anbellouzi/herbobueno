@@ -35,151 +35,151 @@
 <section class="membership-tiers">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="tiers-container">
-                    <!-- Basic Tier -->
-                    <div class="tier-card basic-tier">
-                        <div class="tier-header">
-                            <div class="tier-icon">
-                                <i class="fas fa-seedling"></i>
-                            </div>
-                            <h3 class="tier-name">Basic</h3>
-                            <div class="tier-price">
-                                <span class="currency">$</span>
-                                <span class="amount">9</span>
-                                <span class="period">/month</span>
-                            </div>
-                            <p class="tier-description">Perfect for getting started with Herbo Bueno</p>
+
+            <div class="tiers-container">
+                <!-- Basic Tier -->
+                <div class="tier-card basic-tier">
+                    <div class="tier-header">
+                        <div class="tier-icon">
+                            <i class="fas fa-seedling"></i>
                         </div>
-                        
-                        <div class="tier-features">
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>1x Giveaway Entries</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>Access to All Giveaways</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>Vendor Discounts</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>Email Support</span>
-                            </div>
+                        <h3 class="tier-name">Basic</h3>
+                        <div class="tier-price">
+                            <span class="currency">$</span>
+                            <span class="amount">9</span>
+                            <span class="period">/month</span>
                         </div>
-                        
-                        <div class="tier-action">
-                            {% if user.is_authenticated %}
-                                <a href="#" class="btn btn-outline-primary btn-lg w-100">Choose Basic</a>
-                            {% else %}
-                                <a href="{% url 'signup' %}" class="btn btn-outline-primary btn-lg w-100">Sign Up First</a>
-                            {% endif %}
+                        <p class="tier-description">Perfect for getting started with Herbo Bueno</p>
+                    </div>
+                    
+                    <div class="tier-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>1x Giveaway Entries</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Access to All Giveaways</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Vendor Discounts</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Email Support</span>
                         </div>
                     </div>
+                    
+                    <div class="tier-action">
+                        {% if user.is_authenticated %}
+                            <a href="#" class="btn btn-outline-primary btn-lg w-100">Choose Basic</a>
+                        {% else %}
+                            <a href="{% url 'signup' %}" class="btn btn-outline-primary btn-lg w-100">Sign Up First</a>
+                        {% endif %}
+                    </div>
+                </div>
 
-                    <!-- Premium Tier (Featured) -->
-                    <div class="tier-card premium-tier featured">
-                        <div class="popular-badge">Most Popular</div>
-                        <div class="tier-header">
-                            <div class="tier-icon">
-                                <i class="fas fa-crown"></i>
-                            </div>
-                            <h3 class="tier-name">Premium</h3>
-                            <div class="tier-price">
-                                <span class="currency">$</span>
-                                <span class="amount">19</span>
-                                <span class="period">/month</span>
-                            </div>
-                            <p class="tier-description">Best value for serious prize hunters</p>
+                <!-- Premium Tier (Featured) -->
+                <div class="tier-card premium-tier featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="tier-header">
+                        <div class="tier-icon">
+                            <i class="fas fa-crown"></i>
                         </div>
-                        
-                        <div class="tier-features">
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>2x Giveaway Entries</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>Early Access to Giveaways</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>Premium Vendor Discounts</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>Priority Support</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>Exclusive Content</span>
-                            </div>
+                        <h3 class="tier-name">Premium</h3>
+                        <div class="tier-price">
+                            <span class="currency">$</span>
+                            <span class="amount">19</span>
+                            <span class="period">/month</span>
                         </div>
-                        
-                        <div class="tier-action">
-                            {% if user.is_authenticated %}
-                                <a href="#" class="btn btn-primary btn-lg w-100">Choose Premium</a>
-                            {% else %}
-                                <a href="{% url 'signup' %}" class="btn btn-primary btn-lg w-100">Sign Up First</a>
-                            {% endif %}
+                        <p class="tier-description">Best value for serious prize hunters</p>
+                    </div>
+                    
+                    <div class="tier-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>2x Giveaway Entries</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Early Access to Giveaways</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Premium Vendor Discounts</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Priority Support</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Exclusive Content</span>
                         </div>
                     </div>
+                    
+                    <div class="tier-action">
+                        {% if user.is_authenticated %}
+                            <a href="#" class="btn btn-primary btn-lg w-100">Choose Premium</a>
+                        {% else %}
+                            <a href="{% url 'signup' %}" class="btn btn-primary btn-lg w-100">Sign Up First</a>
+                        {% endif %}
+                    </div>
+                </div>
 
-                    <!-- VIP Tier -->
-                    <div class="tier-card vip-tier">
-                        <div class="tier-header">
-                            <div class="tier-icon">
-                                <i class="fas fa-gem"></i>
-                            </div>
-                            <h3 class="tier-name">VIP</h3>
-                            <div class="tier-price">
-                                <span class="currency">$</span>
-                                <span class="amount">39</span>
-                                <span class="period">/month</span>
-                            </div>
-                            <p class="tier-description">Ultimate experience for VIP members</p>
+                <!-- VIP Tier -->
+                <div class="tier-card vip-tier">
+                    <div class="tier-header">
+                        <div class="tier-icon">
+                            <i class="fas fa-gem"></i>
                         </div>
-                        
-                        <div class="tier-features">
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>3x Giveaway Entries</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>VIP-Only Giveaways</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>Maximum Vendor Discounts</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>24/7 Concierge Support</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>Exclusive Events</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>Personal Account Manager</span>
-                            </div>
+                        <h3 class="tier-name">VIP</h3>
+                        <div class="tier-price">
+                            <span class="currency">$</span>
+                            <span class="amount">39</span>
+                            <span class="period">/month</span>
                         </div>
-                        
-                        <div class="tier-action">
-                            {% if user.is_authenticated %}
-                                <a href="#" class="btn btn-outline-dark btn-lg w-100">Choose VIP</a>
-                            {% else %}
-                                <a href="{% url 'signup' %}" class="btn btn-outline-dark btn-lg w-100">Sign Up First</a>
-                            {% endif %}
+                        <p class="tier-description">Ultimate experience for VIP members</p>
+                    </div>
+                    
+                    <div class="tier-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>3x Giveaway Entries</span>
                         </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>VIP-Only Giveaways</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Maximum Vendor Discounts</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>24/7 Concierge Support</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Exclusive Events</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Personal Account Manager</span>
+                        </div>
+                    </div>
+                    
+                    <div class="tier-action">
+                        {% if user.is_authenticated %}
+                            <a href="#" class="btn btn-outline-dark btn-lg w-100">Choose VIP</a>
+                        {% else %}
+                            <a href="{% url 'signup' %}" class="btn btn-outline-dark btn-lg w-100">Sign Up First</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
