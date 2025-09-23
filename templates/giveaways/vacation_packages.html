@@ -1,81 +1,288 @@
 {% extends 'base.html' %}
 
-{% block title %}Vacation Packages - Herbo Bueno Club{% endblock %}
+{% block title %}Exotic Vacation Packages - Herbo Bueno{% endblock %}
 
 {% block content %}
-<section class="py-5 giveaways-bg">
-<div class="container">
-    <div class="row mb-5">
-        <div class="col-12 text-center text-white">
-            <h1 class="display-4 fw-bold mb-3">All-Inclusive Vacation Packages</h1>
-            <p class="lead text-white-50">Win amazing 7-day all-inclusive vacations to destinations worldwide</p>
-        </div>
-    </div>
-
-    <div class="row g-4">
-        {% for package in packages %}
-        <div class="col-md-6 col-lg-4">
-            <div class="vacation-card h-100">
-                {% if package.image %}
-                    <img src="{{ package.image.url }}" alt="{{ package.title }}" class="vacation-image card-img-top">
-                {% else %}
-                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                        <i class="fas fa-umbrella-beach text-success fa-3x"></i>
-                    </div>
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title fw-bold mb-2">{{ package.title }}</h5>
-                    <p class="card-text text-muted mb-3">{{ package.description|truncatewords:20 }}</p>
-                    
-                    <div class="row g-2 mb-3">
-                        <div class="col-6">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-map-marker-alt text-success me-2"></i>
-                                <small class="text-muted">{{ package.location }}</small>
-                            </div>
+<!-- Hero Section -->
+<section class="vacation-hero">
+    <div class="hero-content">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h1 class="hero-title">Exotic Vacation Destinations</h1>
+                    <p class="hero-subtitle">Win all-inclusive luxury getaways to the world's most breathtaking destinations</p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Destinations</span>
                         </div>
-                        <div class="col-6">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-calendar text-primary me-2"></i>
-                                <small class="text-muted">{{ package.duration_days }} days</small>
-                            </div>
+                        <div class="stat-item">
+                            <span class="stat-number">$5M+</span>
+                            <span class="stat-label">Total Value</span>
                         </div>
-                        <div class="col-6">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-globe text-info me-2"></i>
-                                <small class="text-muted">{{ package.get_destination_display }}</small>
-                            </div>
+                        <div class="stat-item">
+                            <span class="stat-number">7</span>
+                            <span class="stat-label">Days Average</span>
                         </div>
-                        <div class="col-6">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-dollar-sign text-warning me-2"></i>
-                                <small class="fw-bold text-success">${{ package.value }}</small>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <h6 class="fw-bold mb-2">What's Included:</h6>
-                        <p class="text-muted small">{{ package.includes|truncatewords:15 }}</p>
-                    </div>
-                    
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="badge bg-success">Available</span>
-                        <a href="{% url 'giveaway_list' %}" class="btn btn-outline-success btn-sm">
-                            <i class="fas fa-gift me-1"></i>Enter Giveaway
-                        </a>
                     </div>
                 </div>
             </div>
         </div>
-        {% empty %}
-        <div class="col-12 text-center py-5">
-            <i class="fas fa-plane fa-3x text-muted mb-3"></i>
-            <h3 class="text-muted">No vacation packages available</h3>
-            <p class="text-muted">Check back soon for amazing vacation destinations!</p>
-        </div>
-        {% endfor %}
     </div>
+</section>
+
+<!-- Featured Destinations -->
+<section class="featured-destinations">
+    <div class="container">
+        <!-- Maldives Paradise -->
+        <div class="destination-showcase">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Maldives Paradise" class="img-fluid">
+                        <div class="destination-badge">Most Popular</div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="destination-content">
+                        <div class="destination-meta">
+                            <span class="destination-location">
+                                <i class="fas fa-map-marker-alt"></i> Maldives
+                            </span>
+                            <span class="destination-value">$8,500 Value</span>
+                        </div>
+                        <h2 class="destination-title">Overwater Bungalow Paradise</h2>
+                        <p class="destination-description">
+                            Experience ultimate luxury in a private overwater bungalow with crystal-clear waters, 
+                            world-class diving, and exclusive spa treatments. Includes private butler service and 
+                            gourmet dining under the stars.
+                        </p>
+                        <div class="destination-features">
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <i class="fas fa-bed"></i>
+                                    <span>Luxury Overwater Villa</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>All-Inclusive Dining</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-swimmer"></i>
+                                    <span>Private Beach Access</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-spa"></i>
+                                    <span>Spa & Wellness</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-plane"></i>
+                                    <span>Seaplane Transfers</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-concierge-bell"></i>
+                                    <span>24/7 Butler Service</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="destination-actions">
+                            <a href="{% url 'giveaway_list' %}" class="btn btn-primary btn-lg">
+                                <i class="fas fa-gift me-2"></i>Enter to Win
+                            </a>
+                            <span class="entries-count">2,450 entries so far</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Swiss Alps Retreat -->
+        <div class="destination-showcase reverse">
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-lg-2">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1551524164-6cf2ac531d50?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Swiss Alps" class="img-fluid">
+                        <div class="destination-badge">Exclusive</div>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1">
+                    <div class="destination-content">
+                        <div class="destination-meta">
+                            <span class="destination-location">
+                                <i class="fas fa-map-marker-alt"></i> Swiss Alps
+                            </span>
+                            <span class="destination-value">$6,200 Value</span>
+                        </div>
+                        <h2 class="destination-title">Alpine Luxury Retreat</h2>
+                        <p class="destination-description">
+                            Escape to a 5-star mountain resort in the heart of the Swiss Alps. Enjoy world-class 
+                            skiing, Michelin-starred dining, and breathtaking panoramic views from your private 
+                            chalet with heated infinity pool.
+                        </p>
+                        <div class="destination-features">
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <i class="fas fa-skiing"></i>
+                                    <span>Private Ski Access</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-star"></i>
+                                    <span>Michelin Dining</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-swimming-pool"></i>
+                                    <span>Heated Infinity Pool</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-fire"></i>
+                                    <span>Private Fireplace</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-car"></i>
+                                    <span>Luxury Transfers</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-mountain"></i>
+                                    <span>Mountain Views</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="destination-actions">
+                            <a href="{% url 'giveaway_list' %}" class="btn btn-primary btn-lg">
+                                <i class="fas fa-gift me-2"></i>Enter to Win
+                            </a>
+                            <span class="entries-count">1,890 entries so far</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tokyo Adventure -->
+        <div class="destination-showcase">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Tokyo Adventure" class="img-fluid">
+                        <div class="destination-badge">Cultural</div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="destination-content">
+                        <div class="destination-meta">
+                            <span class="destination-location">
+                                <i class="fas fa-map-marker-alt"></i> Tokyo, Japan
+                            </span>
+                            <span class="destination-value">$4,800 Value</span>
+                        </div>
+                        <h2 class="destination-title">Urban Cultural Experience</h2>
+                        <p class="destination-description">
+                            Immerse yourself in the vibrant culture of Tokyo with a luxury hotel stay, 
+                            private guided tours, exclusive dining experiences, and access to the city's 
+                            most exclusive venues and cultural sites.
+                        </p>
+                        <div class="destination-features">
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <i class="fas fa-hotel"></i>
+                                    <span>5-Star Hotel Suite</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>Private Guide</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>Exclusive Dining</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-train"></i>
+                                    <span>JR Pass Included</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-theater-masks"></i>
+                                    <span>Cultural Experiences</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>Shopping Concierge</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="destination-actions">
+                            <a href="{% url 'giveaway_list' %}" class="btn btn-primary btn-lg">
+                                <i class="fas fa-gift me-2"></i>Enter to Win
+                            </a>
+                            <span class="entries-count">1,650 entries so far</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Santorini Sunset -->
+        <div class="destination-showcase reverse">
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-lg-2">
+                    <div class="destination-image">
+                        <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Santorini Sunset" class="img-fluid">
+                        <div class="destination-badge">Romantic</div>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-1">
+                    <div class="destination-content">
+                        <div class="destination-meta">
+                            <span class="destination-location">
+                                <i class="fas fa-map-marker-alt"></i> Santorini, Greece
+                            </span>
+                            <span class="destination-value">$5,500 Value</span>
+                        </div>
+                        <h2 class="destination-title">Aegean Paradise Escape</h2>
+                        <p class="destination-description">
+                            Discover the magic of Santorini with a luxury cave hotel overlooking the caldera, 
+                            private yacht excursions, wine tastings at exclusive vineyards, and the most 
+                            spectacular sunsets in the world.
+                        </p>
+                        <div class="destination-features">
+                            <div class="feature-grid">
+                                <div class="feature-item">
+                                    <i class="fas fa-home"></i>
+                                    <span>Cave Hotel Suite</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-ship"></i>
+                                    <span>Private Yacht Day</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-wine-glass"></i>
+                                    <span>Wine Tastings</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-sun"></i>
+                                    <span>Sunset Dinners</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Photography Tour</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-heart"></i>
+                                    <span>Couples Spa</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="destination-actions">
+                            <a href="{% url 'giveaway_list' %}" class="btn btn-primary btn-lg">
+                                <i class="fas fa-gift me-2"></i>Enter to Win
+                            </a>
+                            <span class="entries-count">2,100 entries so far</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- How It Works -->
     <div class="row mt-5">
