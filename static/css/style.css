@@ -790,6 +790,7 @@ footer a:hover {
     position: relative;
     height: 100%;
     overflow: hidden;
+    border-radius: 0;
 }
 
 .carousel-container {
