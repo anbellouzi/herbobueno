@@ -540,6 +540,21 @@ footer a:hover {
     }
 }
 
+/* Mobile background positioning to show more of the image */
+@media (max-width: 768px) {
+    .hero-background,
+    .features-bg,
+    .mobile-app-bg,
+    .giveaways-bg,
+    .how-it-works-bg,
+    .cta-bg,
+    .ecosystem-bg {
+        background-position: right bottom !important;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
+
 /* Loading States */
 .loading {
     opacity: 0.6;
