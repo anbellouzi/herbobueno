@@ -1,6 +1,9 @@
 from django.core.management.base import BaseCommand
 from vendors.models import Business
 import uuid
+import requests
+from django.core.files.base import ContentFile
+from django.core.files.temp import NamedTemporaryFile
 
 
 class Command(BaseCommand):
@@ -23,6 +26,8 @@ class Command(BaseCommand):
                 'longitude': -118.2437,
                 'points_per_visit': 15,
                 'has_golden_ticket': True,
+                'banner_image_url': 'https://images.unsplash.com/photo-1605152276897-4f618f831968?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                'logo_url': 'https://images.unsplash.com/photo-1605152276897-4f618f831968?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
                 'hours_monday': '9:00 AM - 10:00 PM',
                 'hours_tuesday': '9:00 AM - 10:00 PM',
                 'hours_wednesday': '9:00 AM - 10:00 PM',
@@ -46,6 +51,8 @@ class Command(BaseCommand):
                 'longitude': -73.9934,
                 'points_per_visit': 12,
                 'has_golden_ticket': False,
+                'banner_image_url': 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                'logo_url': 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
                 'hours_monday': '10:00 AM - 8:00 PM',
                 'hours_tuesday': '10:00 AM - 8:00 PM',
                 'hours_wednesday': '10:00 AM - 8:00 PM',
@@ -69,6 +76,8 @@ class Command(BaseCommand):
                 'longitude': -104.9903,
                 'points_per_visit': 18,
                 'has_golden_ticket': True,
+                'banner_image_url': 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                'logo_url': 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
                 'hours_monday': '11:00 AM - 9:00 PM',
                 'hours_tuesday': '11:00 AM - 9:00 PM',
                 'hours_wednesday': '11:00 AM - 9:00 PM',
@@ -92,6 +101,8 @@ class Command(BaseCommand):
                 'longitude': -80.1918,
                 'points_per_visit': 20,
                 'has_golden_ticket': False,
+                'banner_image_url': 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                'logo_url': 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
                 'hours_monday': 'Closed',
                 'hours_tuesday': '6:00 PM - 2:00 AM',
                 'hours_wednesday': '6:00 PM - 2:00 AM',
@@ -115,6 +126,8 @@ class Command(BaseCommand):
                 'longitude': -122.6784,
                 'points_per_visit': 14,
                 'has_golden_ticket': False,
+                'banner_image_url': 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                'logo_url': 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
                 'hours_monday': '9:00 AM - 7:00 PM',
                 'hours_tuesday': '9:00 AM - 7:00 PM',
                 'hours_wednesday': '9:00 AM - 7:00 PM',
@@ -138,6 +151,8 @@ class Command(BaseCommand):
                 'longitude': -122.3321,
                 'points_per_visit': 10,
                 'has_golden_ticket': False,
+                'banner_image_url': 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                'logo_url': 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
                 'hours_monday': '6:00 AM - 6:00 PM',
                 'hours_tuesday': '6:00 AM - 6:00 PM',
                 'hours_wednesday': '6:00 AM - 6:00 PM',
@@ -161,6 +176,8 @@ class Command(BaseCommand):
                 'longitude': -122.4194,
                 'points_per_visit': 16,
                 'has_golden_ticket': True,
+                'banner_image_url': 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                'logo_url': 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
                 'hours_monday': '10:00 AM - 8:00 PM',
                 'hours_tuesday': '10:00 AM - 8:00 PM',
                 'hours_wednesday': '10:00 AM - 8:00 PM',
@@ -184,6 +201,8 @@ class Command(BaseCommand):
                 'longitude': -86.7816,
                 'points_per_visit': 13,
                 'has_golden_ticket': False,
+                'banner_image_url': 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                'logo_url': 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
                 'hours_monday': '11:00 AM - 7:00 PM',
                 'hours_tuesday': '11:00 AM - 7:00 PM',
                 'hours_wednesday': '11:00 AM - 7:00 PM',
@@ -207,6 +226,8 @@ class Command(BaseCommand):
                 'longitude': -97.7431,
                 'points_per_visit': 11,
                 'has_golden_ticket': False,
+                'banner_image_url': 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                'logo_url': 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
                 'hours_monday': '5:00 AM - 11:00 PM',
                 'hours_tuesday': '5:00 AM - 11:00 PM',
                 'hours_wednesday': '5:00 AM - 11:00 PM',
@@ -230,6 +251,8 @@ class Command(BaseCommand):
                 'longitude': -87.6298,
                 'points_per_visit': 17,
                 'has_golden_ticket': True,
+                'banner_image_url': 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                'logo_url': 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80',
                 'hours_monday': 'Closed',
                 'hours_tuesday': '10:00 AM - 6:00 PM',
                 'hours_wednesday': '10:00 AM - 6:00 PM',
@@ -242,12 +265,49 @@ class Command(BaseCommand):
 
         created_count = 0
         for business_data in businesses_data:
+            # Extract image URLs
+            banner_image_url = business_data.pop('banner_image_url', None)
+            logo_url = business_data.pop('logo_url', None)
+            
             business, created = Business.objects.get_or_create(
                 name=business_data['name'],
                 defaults=business_data
             )
+            
             if created:
                 created_count += 1
+                
+                # Download and save banner image
+                if banner_image_url:
+                    try:
+                        response = requests.get(banner_image_url)
+                        if response.status_code == 200:
+                            img_temp = NamedTemporaryFile(delete=True)
+                            img_temp.write(response.content)
+                            img_temp.flush()
+                            business.banner_image.save(
+                                f"{business.name.replace(' ', '_')}_banner.jpg",
+                                ContentFile(response.content),
+                                save=True
+                            )
+                            self.stdout.write(f'  ✓ Added banner image for {business.name}')
+                    except Exception as e:
+                        self.stdout.write(f'  ⚠ Could not download banner image for {business.name}: {e}')
+                
+                # Download and save logo
+                if logo_url:
+                    try:
+                        response = requests.get(logo_url)
+                        if response.status_code == 200:
+                            business.logo.save(
+                                f"{business.name.replace(' ', '_')}_logo.jpg",
+                                ContentFile(response.content),
+                                save=True
+                            )
+                            self.stdout.write(f'  ✓ Added logo for {business.name}')
+                    except Exception as e:
+                        self.stdout.write(f'  ⚠ Could not download logo for {business.name}: {e}')
+                
                 self.stdout.write(
                     self.style.SUCCESS(f'Created business: {business.name}')
                 )
