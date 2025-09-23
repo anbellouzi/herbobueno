@@ -1526,9 +1526,9 @@ footer a:hover {
 
 .tiers-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 2rem 1rem;
     overflow: hidden;
@@ -2204,5 +2204,69 @@ footer a:hover {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #218838;
+}
+
+/* Membership Tiers Responsive */
+@media (max-width: 1200px) {
+    .tiers-container {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 100%;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .tiers-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .tier-card.featured {
+        transform: none;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .membership-hero .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .membership-hero .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .membership-hero .hero-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .membership-hero .stat-number {
+        font-size: 2rem;
+    }
+    
+    .tiers-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+    
+    .tier-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .tier-card.featured {
+        transform: none;
+        margin-top: 0;
+    }
+    
+    .tier-price .amount {
+        font-size: 2.5rem;
+    }
+    
+    .tier-icon {
+        width: 60px;
+        height: 60px;
+    }
 }
 
