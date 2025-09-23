@@ -12,64 +12,163 @@
         </div>
     </div>
 
+    <!-- Featured Giveaways Grid -->
     <div class="row g-4">
-        {% for giveaway in giveaways %}
+        <!-- Concert Ticket Giveaway -->
         <div class="col-md-6 col-lg-4">
-            <div class="card giveaway-card h-100">
-                {% if giveaway.giveaway_type == 'vacation' and giveaway.vacation_package and giveaway.vacation_package.image %}
-                    <img src="{{ giveaway.vacation_package.image.url }}" alt="{{ giveaway.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
-                {% elif giveaway.giveaway_type == 'business_prize' and giveaway.business_prize and giveaway.business_prize.image %}
-                    <img src="{{ giveaway.business_prize.image.url }}" alt="{{ giveaway.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
-                {% else %}
-                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                        {% if giveaway.giveaway_type == 'vacation' %}
-                            <i class="fas fa-plane text-success fa-3x"></i>
-                        {% else %}
-                            <i class="fas fa-gift text-primary fa-3x"></i>
-                        {% endif %}
+            <div class="giveaway-card sandals-style">
+                <div class="giveaway-image">
+                    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Concert Experience" class="img-fluid">
+                    <div class="giveaway-overlay">
+                        <div class="giveaway-badge">Concert</div>
+                        <div class="giveaway-value">$2,500</div>
                     </div>
-                {% endif %}
-                
-                <div class="card-body">
-                    <h5 class="card-title fw-bold mb-2">{{ giveaway.title }}</h5>
-                    <p class="card-text text-muted mb-3">{{ giveaway.description|truncatewords:15 }}</p>
-                    
-                    <div class="mb-3">
-                        {% if giveaway.giveaway_type == 'vacation' %}
-                            <span class="badge bg-success me-2">
-                                <i class="fas fa-plane me-1"></i>Vacation Package
-                            </span>
-                            {% if giveaway.vacation_package %}
-                                <span class="text-success fw-bold">Value: ${{ giveaway.vacation_package.value }}</span>
-                            {% endif %}
-                        {% else %}
-                            <span class="badge bg-primary me-2">
-                                <i class="fas fa-gift me-1"></i>Business Prize
-                            </span>
-                            {% if giveaway.business_prize %}
-                                <span class="text-primary fw-bold">Value: ${{ giveaway.business_prize.value }}</span>
-                            {% endif %}
-                        {% endif %}
+                </div>
+                <div class="giveaway-content">
+                    <h4 class="giveaway-title">VIP Concert Experience</h4>
+                    <p class="giveaway-description">Win front-row tickets to your favorite artist's concert with backstage access and meet & greet!</p>
+                    <div class="giveaway-meta">
+                        <span class="giveaway-type">
+                            <i class="fas fa-music me-1"></i>Concert Tickets
+                        </span>
+                        <span class="giveaway-entries">1,250 entries</span>
                     </div>
-                    
-                    <div class="d-flex justify-content-between align-items-center">
-                        <small class="text-muted">
-                            Ends: {{ giveaway.end_date|date:"M d, Y" }}
-                        </small>
-                        <a href="{% url 'giveaway_detail' giveaway.id %}" class="btn btn-success btn-sm">
-                            <i class="fas fa-eye me-1"></i>View Details
-                        </a>
+                    <div class="giveaway-actions">
+                        <a href="#" class="btn btn-primary btn-lg w-100">Enter Now</a>
                     </div>
                 </div>
             </div>
         </div>
-        {% empty %}
-        <div class="col-12 text-center py-5">
-            <i class="fas fa-gift fa-3x text-muted mb-3"></i>
-            <h3 class="text-muted">No active giveaways</h3>
-            <p class="text-muted">Check back soon for new amazing giveaways!</p>
+
+        <!-- Free Merchandise Giveaway -->
+        <div class="col-md-6 col-lg-4">
+            <div class="giveaway-card sandals-style">
+                <div class="giveaway-image">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Premium Merchandise" class="img-fluid">
+                    <div class="giveaway-overlay">
+                        <div class="giveaway-badge">Merchandise</div>
+                        <div class="giveaway-value">$1,200</div>
+                    </div>
+                </div>
+                <div class="giveaway-content">
+                    <h4 class="giveaway-title">Premium Merchandise Bundle</h4>
+                    <p class="giveaway-description">Exclusive clothing, accessories, and limited edition items from top brands in our ecosystem.</p>
+                    <div class="giveaway-meta">
+                        <span class="giveaway-type">
+                            <i class="fas fa-shopping-bag me-1"></i>Merchandise
+                        </span>
+                        <span class="giveaway-entries">890 entries</span>
+                    </div>
+                    <div class="giveaway-actions">
+                        <a href="#" class="btn btn-primary btn-lg w-100">Enter Now</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        {% endfor %}
+
+        <!-- Tropical Paradise Travel Package -->
+        <div class="col-md-6 col-lg-4">
+            <div class="giveaway-card sandals-style">
+                <div class="giveaway-image">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Tropical Paradise" class="img-fluid">
+                    <div class="giveaway-overlay">
+                        <div class="giveaway-badge">Travel</div>
+                        <div class="giveaway-value">$4,500</div>
+                    </div>
+                </div>
+                <div class="giveaway-content">
+                    <h4 class="giveaway-title">Tropical Paradise Getaway</h4>
+                    <p class="giveaway-description">7-day all-inclusive vacation to a luxury tropical resort with private beach access and spa treatments.</p>
+                    <div class="giveaway-meta">
+                        <span class="giveaway-type">
+                            <i class="fas fa-plane me-1"></i>Travel Package
+                        </span>
+                        <span class="giveaway-entries">2,100 entries</span>
+                    </div>
+                    <div class="giveaway-actions">
+                        <a href="#" class="btn btn-primary btn-lg w-100">Enter Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- European Adventure Travel Package -->
+        <div class="col-md-6 col-lg-4">
+            <div class="giveaway-card sandals-style">
+                <div class="giveaway-image">
+                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="European Adventure" class="img-fluid">
+                    <div class="giveaway-overlay">
+                        <div class="giveaway-badge">Travel</div>
+                        <div class="giveaway-value">$6,200</div>
+                    </div>
+                </div>
+                <div class="giveaway-content">
+                    <h4 class="giveaway-title">European Adventure Tour</h4>
+                    <p class="giveaway-description">10-day guided tour through Europe's most beautiful cities with luxury accommodations and fine dining.</p>
+                    <div class="giveaway-meta">
+                        <span class="giveaway-type">
+                            <i class="fas fa-plane me-1"></i>Travel Package
+                        </span>
+                        <span class="giveaway-entries">1,850 entries</span>
+                    </div>
+                    <div class="giveaway-actions">
+                        <a href="#" class="btn btn-primary btn-lg w-100">Enter Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mountain Retreat Travel Package -->
+        <div class="col-md-6 col-lg-4">
+            <div class="giveaway-card sandals-style">
+                <div class="giveaway-image">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mountain Retreat" class="img-fluid">
+                    <div class="giveaway-overlay">
+                        <div class="giveaway-badge">Travel</div>
+                        <div class="giveaway-value">$3,800</div>
+                    </div>
+                </div>
+                <div class="giveaway-content">
+                    <h4 class="giveaway-title">Luxury Mountain Retreat</h4>
+                    <p class="giveaway-description">5-day stay at a premium mountain resort with skiing, spa services, and gourmet dining experiences.</p>
+                    <div class="giveaway-meta">
+                        <span class="giveaway-type">
+                            <i class="fas fa-plane me-1"></i>Travel Package
+                        </span>
+                        <span class="giveaway-entries">1,420 entries</span>
+                    </div>
+                    <div class="giveaway-actions">
+                        <a href="#" class="btn btn-primary btn-lg w-100">Enter Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- City Escape Travel Package -->
+        <div class="col-md-6 col-lg-4">
+            <div class="giveaway-card sandals-style">
+                <div class="giveaway-image">
+                    <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="City Escape" class="img-fluid">
+                    <div class="giveaway-overlay">
+                        <div class="giveaway-badge">Travel</div>
+                        <div class="giveaway-value">$2,900</div>
+                    </div>
+                </div>
+                <div class="giveaway-content">
+                    <h4 class="giveaway-title">Urban City Escape</h4>
+                    <p class="giveaway-description">Weekend getaway to a vibrant city with luxury hotel stay, fine dining, and exclusive city tours.</p>
+                    <div class="giveaway-meta">
+                        <span class="giveaway-type">
+                            <i class="fas fa-plane me-1"></i>Travel Package
+                        </span>
+                        <span class="giveaway-entries">980 entries</span>
+                    </div>
+                    <div class="giveaway-actions">
+                        <a href="#" class="btn btn-primary btn-lg w-100">Enter Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Quick Links -->
