@@ -18,10 +18,10 @@
                     {% for entry in entries %}
                     <div class="col-md-6 col-lg-4">
                         <div class="card giveaway-card h-100">
-                            {% if entry.giveaway.giveaway_type == 'vacation' and entry.giveaway.vacation_package.image %}
+                            {% if entry.giveaway.giveaway_type == 'vacation' and entry.giveaway.vacation_package and entry.giveaway.vacation_package.image %}
                                 <img src="{{ entry.giveaway.vacation_package.image.url }}" alt="{{ entry.giveaway.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
-                            {% elif entry.giveaway.giveaway_type == 'vendor_prize' and entry.giveaway.vendor_prize.image %}
-                                <img src="{{ entry.giveaway.vendor_prize.image.url }}" alt="{{ entry.giveaway.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                            {% elif entry.giveaway.giveaway_type == 'business_prize' and entry.giveaway.business_prize and entry.giveaway.business_prize.image %}
+                                <img src="{{ entry.giveaway.business_prize.image.url }}" alt="{{ entry.giveaway.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
                             {% else %}
                                 <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
                                     {% if entry.giveaway.giveaway_type == 'vacation' %}
@@ -46,7 +46,9 @@
                                         <span class="badge bg-primary me-2">
                                             <i class="fas fa-gift me-1"></i>Prize
                                         </span>
-                                        <span class="text-primary fw-bold">${{ entry.giveaway.vendor_prize.value }}</span>
+                                        {% if entry.giveaway.business_prize %}
+                                            <span class="text-primary fw-bold">${{ entry.giveaway.business_prize.value }}</span>
+                                        {% endif %}
                                     {% endif %}
                                 </div>
                                 
@@ -123,9 +125,9 @@
                 <div class="text-center py-5">
                     <i class="fas fa-gift fa-3x text-muted mb-3"></i>
                     <h3 class="text-muted">No entries yet</h3>
-                    <p class="text-muted mb-4">Make purchases from our vendors to earn giveaway entries!</p>
-                    <a href="{% url 'vendor_list' %}" class="btn btn-success btn-lg">
-                        <i class="fas fa-store me-2"></i>Shop with Vendors
+                    <p class="text-muted mb-4">Make purchases from our ecosystem businesses to earn giveaway entries!</p>
+                    <a href="{% url 'ecosystem_list' %}" class="btn btn-success btn-lg">
+                        <i class="fas fa-store me-2"></i>Explore Ecosystem
                     </a>
                 </div>
             {% endif %}
