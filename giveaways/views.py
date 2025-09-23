@@ -102,8 +102,8 @@ def vacation_packages(request):
 
 
 def vendor_prizes(request):
-    """Display all vendor prizes"""
-    prizes = VendorPrize.objects.filter(is_active=True, quantity_available__gt=0)
+    """Display all business prizes"""
+    prizes = BusinessPrize.objects.filter(is_active=True, quantity_available__gt=0)
     context = {
         'prizes': prizes,
     }

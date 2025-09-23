@@ -22,6 +22,11 @@ def contact(request):
     return render(request, 'core/contact.html')
 
 
+def golden_ticket(request):
+    """Golden Ticket info page"""
+    return render(request, 'core/golden_ticket.html')
+
+
 def signup(request):
     """User registration view"""
     if request.method == 'POST':

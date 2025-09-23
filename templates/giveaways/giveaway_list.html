@@ -15,10 +15,10 @@
         {% for giveaway in giveaways %}
         <div class="col-md-6 col-lg-4">
             <div class="card giveaway-card h-100">
-                {% if giveaway.giveaway_type == 'vacation' and giveaway.vacation_package.image %}
+                {% if giveaway.giveaway_type == 'vacation' and giveaway.vacation_package and giveaway.vacation_package.image %}
                     <img src="{{ giveaway.vacation_package.image.url }}" alt="{{ giveaway.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
-                {% elif giveaway.giveaway_type == 'vendor_prize' and giveaway.vendor_prize.image %}
-                    <img src="{{ giveaway.vendor_prize.image.url }}" alt="{{ giveaway.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                {% elif giveaway.giveaway_type == 'business_prize' and giveaway.business_prize and giveaway.business_prize.image %}
+                    <img src="{{ giveaway.business_prize.image.url }}" alt="{{ giveaway.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
                 {% else %}
                     <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
                         {% if giveaway.giveaway_type == 'vacation' %}
@@ -38,12 +38,16 @@
                             <span class="badge bg-success me-2">
                                 <i class="fas fa-plane me-1"></i>Vacation Package
                             </span>
-                            <span class="text-success fw-bold">Value: ${{ giveaway.vacation_package.value }}</span>
+                            {% if giveaway.vacation_package %}
+                                <span class="text-success fw-bold">Value: ${{ giveaway.vacation_package.value }}</span>
+                            {% endif %}
                         {% else %}
                             <span class="badge bg-primary me-2">
-                                <i class="fas fa-gift me-1"></i>Vendor Prize
+                                <i class="fas fa-gift me-1"></i>Business Prize
                             </span>
-                            <span class="text-primary fw-bold">Value: ${{ giveaway.vendor_prize.value }}</span>
+                            {% if giveaway.business_prize %}
+                                <span class="text-primary fw-bold">Value: ${{ giveaway.business_prize.value }}</span>
+                            {% endif %}
                         {% endif %}
                     </div>
                     

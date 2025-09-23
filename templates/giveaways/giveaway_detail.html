@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ giveaway.title }} - Herbo Bueno Club{% endblock %}
+{% block title %}{{ giveaway.title }} - Herbo Bueno{% endblock %}
 
 {% block content %}
 <div class="container py-5">
@@ -8,10 +8,10 @@
         <div class="col-lg-8">
             <!-- Giveaway Header -->
             <div class="card border-0 shadow-sm mb-4">
-                {% if giveaway.giveaway_type == 'vacation' and giveaway.vacation_package.image %}
+                {% if giveaway.giveaway_type == 'vacation' and giveaway.vacation_package and giveaway.vacation_package.image %}
                     <img src="{{ giveaway.vacation_package.image.url }}" alt="{{ giveaway.title }}" class="card-img-top" style="height: 400px; object-fit: cover;">
-                {% elif giveaway.giveaway_type == 'vendor_prize' and giveaway.vendor_prize.image %}
-                    <img src="{{ giveaway.vendor_prize.image.url }}" alt="{{ giveaway.title }}" class="card-img-top" style="height: 400px; object-fit: cover;">
+                {% elif giveaway.giveaway_type == 'business_prize' and giveaway.business_prize and giveaway.business_prize.image %}
+                    <img src="{{ giveaway.business_prize.image.url }}" alt="{{ giveaway.title }}" class="card-img-top" style="height: 400px; object-fit: cover;">
                 {% endif %}
                 
                 <div class="card-body p-4">
