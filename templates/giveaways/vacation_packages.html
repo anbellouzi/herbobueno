@@ -3,11 +3,12 @@
 {% block title %}Vacation Packages - Herbo Bueno Club{% endblock %}
 
 {% block content %}
-<div class="container py-5">
+<section class="py-5 giveaways-bg">
+<div class="container">
     <div class="row mb-5">
-        <div class="col-12 text-center">
+        <div class="col-12 text-center text-white">
             <h1 class="display-4 fw-bold mb-3">All-Inclusive Vacation Packages</h1>
-            <p class="lead text-muted">Win amazing 7-day all-inclusive vacations to destinations worldwide</p>
+            <p class="lead text-white-50">Win amazing 7-day all-inclusive vacations to destinations worldwide</p>
         </div>
     </div>
 
@@ -15,7 +16,13 @@
         {% for package in packages %}
         <div class="col-md-6 col-lg-4">
             <div class="vacation-card h-100">
-                <img src="{{ package.image.url }}" alt="{{ package.title }}" class="vacation-image card-img-top">
+                {% if package.image %}
+                    <img src="{{ package.image.url }}" alt="{{ package.title }}" class="vacation-image card-img-top">
+                {% else %}
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-umbrella-beach text-success fa-3x"></i>
+                    </div>
+                {% endif %}
                 <div class="card-body">
                     <h5 class="card-title fw-bold mb-2">{{ package.title }}</h5>
                     <p class="card-text text-muted mb-3">{{ package.description|truncatewords:20 }}</p>
