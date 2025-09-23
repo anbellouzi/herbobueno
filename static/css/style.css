@@ -122,9 +122,23 @@ body {
 }
 
 .footer-logo {
-    height: 42px;
+    height: 64px;
     width: auto;
     display: inline-block;
+}
+
+/* Footer readability on dark background */
+footer.bg-dark a {
+    color: #ffffff !important;
+}
+
+footer.bg-dark a:hover {
+    color: #f8f9fa !important;
+    text-decoration: underline;
+}
+
+footer.bg-dark .text-muted {
+    color: rgba(255, 255, 255, 0.85) !important;
 }
 
 /* Hero Section */
