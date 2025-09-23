@@ -778,13 +778,18 @@ footer a:hover {
     color: #333 !important;
 }
 
+/* Features Full Section */
+.features-full-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
 /* Features Carousel */
 .features-carousel {
     position: relative;
-    height: 500px;
+    height: 100%;
     overflow: hidden;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .carousel-container {
@@ -880,10 +885,151 @@ footer a:hover {
     animation-play-state: paused;
 }
 
+/* Golden Ticket Section */
+.golden-ticket-section {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 5rem 0;
+    color: white;
+}
+
+.golden-ticket-carousel {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.golden-ticket-carousel .carousel-track {
+    display: flex;
+    width: 200%; /* 3 slides + 3 duplicates = 6 slides total */
+    height: 100%;
+    animation: slideRight 15s infinite linear;
+}
+
+.golden-ticket-carousel .carousel-slide {
+    width: 16.666%; /* 100% / 6 slides */
+    height: 100%;
+    flex-shrink: 0;
+    padding: 0 1rem;
+}
+
+.ticket-card {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.ticket-card:hover {
+    transform: translateY(-5px);
+}
+
+.ticket-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ticket-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.ticket-content {
+    text-align: center;
+    color: white;
+}
+
+.ticket-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    color: #ffd700;
+}
+
+.ticket-description {
+    font-size: 1rem;
+    line-height: 1.4;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    opacity: 0.9;
+    margin-bottom: 1rem;
+}
+
+.ticket-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffd700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 215, 0, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    border: 2px solid #ffd700;
+    display: inline-block;
+}
+
+@keyframes slideRight {
+    0% {
+        transform: translateX(0);
+    }
+    16.66% {
+        transform: translateX(-16.666%);
+    }
+    33.33% {
+        transform: translateX(-33.333%);
+    }
+    50% {
+        transform: translateX(-50%);
+    }
+    66.66% {
+        transform: translateX(-33.333%);
+    }
+    83.33% {
+        transform: translateX(-16.666%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Pause golden ticket animation on hover */
+.golden-ticket-carousel:hover .carousel-track {
+    animation-play-state: paused;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .features-full-section {
+        height: 70vh;
+    }
+    
     .features-carousel {
-        height: 400px;
+        height: 100%;
+    }
+    
+    .golden-ticket-section {
+        padding: 3rem 0;
+    }
+    
+    .golden-ticket-carousel {
+        height: 300px;
     }
     
     .slide-title {
@@ -892,6 +1038,18 @@ footer a:hover {
     
     .slide-description {
         font-size: 1rem;
+    }
+    
+    .ticket-title {
+        font-size: 1.2rem;
+    }
+    
+    .ticket-description {
+        font-size: 0.9rem;
+    }
+    
+    .ticket-value {
+        font-size: 1.4rem;
     }
     
     .slide-content {
