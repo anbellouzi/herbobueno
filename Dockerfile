@@ -28,18 +28,17 @@ COPY . /app/
 # Create staticfiles directory
 RUN mkdir -p /app/staticfiles
 
+# Create database and run migrations during build
+RUN python manage.py migrate --noinput
+
+# Populate with sample data
+RUN python manage.py populate_businesses
+
 # Collect static files
 RUN python manage.py collectstatic --noinput
-
-# Copy entrypoint script
-COPY entrypoint.sh /app/entrypoint.sh
-RUN chmod +x /app/entrypoint.sh
 
 # Expose port
 EXPOSE $PORT
 
-# Set entrypoint
-ENTRYPOINT ["/app/entrypoint.sh"]
-
-# Run the application
+# Run the application directly
 CMD ["gunicorn", "herbo_bueno.wsgi", "--bind", "0.0.0.0:$PORT", "--log-file", "-"]
