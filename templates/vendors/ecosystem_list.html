@@ -83,8 +83,11 @@
         <div class="col-md-6 col-lg-4">
             <div class="business-card h-100">
                 <div class="card-image">
-                    {% if business.banner_image %}
-                        <img src="{{ business.banner_image.url }}" alt="{{ business.name }}" class="img-fluid">
+                    {% if business.banner_image and business.banner_image.url %}
+                        <img src="{{ business.banner_image.url }}" alt="{{ business.name }}" class="img-fluid" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-image" style="display: none;">
+                            <i class="fas fa-store"></i>
+                        </div>
                     {% else %}
                         <div class="placeholder-image">
                             <i class="fas fa-store"></i>
@@ -103,8 +106,8 @@
                 
                 <div class="card-content">
                     <div class="business-header">
-                        {% if business.logo %}
-                            <img src="{{ business.logo.url }}" alt="{{ business.name }}" class="business-logo">
+                        {% if business.logo and business.logo.url %}
+                            <img src="{{ business.logo.url }}" alt="{{ business.name }}" class="business-logo" onerror="this.style.display='none';">
                         {% endif %}
                         <div class="business-info">
                             <h5 class="business-name">{{ business.name }}</h5>
