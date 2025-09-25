@@ -2602,6 +2602,257 @@ footer a:hover {
     }
 }
 
+/* Signup and Login Page Styles */
+.signup-hero {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), 
+                url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.login-hero {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), 
+                url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.signup-hero .hero-overlay,
+.login-hero .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.signup-card,
+.login-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+.signup-card .card-header,
+.login-card .card-header {
+    background: linear-gradient(135deg, #28a745, #007bff);
+    color: white;
+    padding: 2rem;
+    border: none;
+}
+
+.signup-card .card-body,
+.login-card .card-body {
+    padding: 2rem;
+}
+
+.signup-card .card-footer,
+.login-card .card-footer {
+    background: rgba(248, 249, 250, 0.8);
+    border: none;
+    padding: 1.5rem 2rem;
+}
+
+.signup-icon,
+.login-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 2rem;
+}
+
+.signup-title,
+.login-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.signup-subtitle,
+.login-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.form-label i {
+    color: #28a745;
+}
+
+.form-control {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    background: white;
+}
+
+.btn-signup,
+.btn-login {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-signup:hover,
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+    background: linear-gradient(135deg, #218838, #1ea085);
+}
+
+.login-link,
+.signup-link {
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+.login-link-text,
+.signup-link-text {
+    color: #28a745;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-link-text:hover,
+.signup-link-text:hover {
+    color: #218838;
+    text-decoration: underline;
+}
+
+.benefits-section,
+.quick-benefits {
+    text-align: center;
+}
+
+.benefits-title,
+.quick-benefits-title {
+    color: #28a745;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(40, 167, 69, 0.1);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.benefit-icon {
+    color: #28a745;
+    margin-right: 0.5rem;
+    font-size: 1rem;
+}
+
+.quick-benefits-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.quick-benefit {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: rgba(40, 167, 69, 0.1);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.quick-benefit i {
+    color: #28a745;
+    margin-right: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .signup-hero,
+    .login-hero {
+        background-attachment: scroll;
+    }
+    
+    .signup-card,
+    .login-card {
+        margin: 1rem;
+    }
+    
+    .signup-title,
+    .login-title {
+        font-size: 2rem;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-benefits-list {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 /* Ecosystem Page Styles */
 .ecosystem-hero {
     background: linear-gradient(135deg, rgba(40, 167, 69, 0.9), rgba(0, 123, 255, 0.9)), 

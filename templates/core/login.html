@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Sign In - Herbo Bueno{% endblock %}
+
+{% block content %}
+<!-- Elegant Login Hero Section -->
+<section class="login-hero">
+    <div class="hero-overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-lg-4 col-md-6">
+                <div class="login-card">
+                    <div class="card-header">
+                        <div class="text-center mb-4">
+                            <div class="login-icon">
+                                <i class="fas fa-sign-in-alt"></i>
+                            </div>
+                            <h1 class="login-title">Welcome Back</h1>
+                            <p class="login-subtitle">Sign in to your Herbo Bueno account</p>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <form method="post" class="login-form">
+                            {% csrf_token %}
+                            
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {% for error in form.non_field_errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            
+                            <div class="form-group mb-3">
+                                <label for="{{ form.username.id_for_label }}" class="form-label">
+                                    <i class="fas fa-user me-2"></i>Username
+                                </label>
+                                {{ form.username }}
+                                {% if form.username.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.username.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group mb-4">
+                                <label for="{{ form.password.id_for_label }}" class="form-label">
+                                    <i class="fas fa-lock me-2"></i>Password
+                                </label>
+                                {{ form.password }}
+                                {% if form.password.errors %}
+                                    <div class="text-danger small mt-1">
+                                        {% for error in form.password.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn-login">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                                </button>
+                            </div>
+                        </form>
+
+                        <div class="text-center mt-4">
+                            <p class="signup-link">
+                                Don't have an account? 
+                                <a href="{% url 'signup' %}" class="signup-link-text">Join Herbo Bueno</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="quick-benefits">
+                            <h6 class="quick-benefits-title">
+                                <i class="fas fa-bolt me-2"></i>Quick Access To:
+                            </h6>
+                            <div class="quick-benefits-list">
+                                <span class="quick-benefit">
+                                    <i class="fas fa-store"></i> Business Ecosystem
+                                </span>
+                                <span class="quick-benefit">
+                                    <i class="fas fa-ticket-alt"></i> Giveaways
+                                </span>
+                                <span class="quick-benefit">
+                                    <i class="fas fa-plane"></i> Vacations
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
