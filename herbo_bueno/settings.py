@@ -70,13 +70,27 @@ import os
 IS_RAILWAY = os.environ.get('RAILWAY_ENVIRONMENT') or os.environ.get('DATABASE_URL')
 
 if IS_RAILWAY:
-    # Railway PostgreSQL configuration - Force PostgreSQL
+    # Railway PostgreSQL configuration
     import dj_database_url
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL', 'postgresql://postgres:password@localhost:5432/herbobueno'))
-    }
-    # Ensure we're using PostgreSQL
-    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
+    
+    # Get DATABASE_URL from environment
+    database_url = os.environ.get('DATABASE_URL')
+    
+    if database_url:
+        # Parse the DATABASE_URL
+        DATABASES = {
+            'default': dj_database_url.parse(database_url)
+        }
+        # Ensure we're using PostgreSQL
+        DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
+    else:
+        # Fallback to SQLite if no DATABASE_URL
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
 else:
     # Local SQLite configuration
     DATABASES = {
