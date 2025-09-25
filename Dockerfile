@@ -31,8 +31,15 @@ RUN mkdir -p /app/staticfiles
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
+# Create entrypoint script
+RUN echo '#!/bin/bash\nset -e\n\n# Run migrations\npython manage.py migrate\n\n# Start the application\nexec "$@"' > /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 # Expose port
 EXPOSE $PORT
+
+# Set entrypoint
+ENTRYPOINT ["/app/entrypoint.sh"]
 
 # Run the application
 CMD ["gunicorn", "herbo_bueno.wsgi", "--bind", "0.0.0.0:$PORT", "--log-file", "-"]
