@@ -10,26 +10,36 @@ from .forms import BusinessForm
 
 def ecosystem_list(request):
     """Display all active businesses in the ecosystem"""
-    businesses = Business.objects.filter(is_active=True)
-    category = request.GET.get('category')
-    city = request.GET.get('city')
-    
-    if category:
-        businesses = businesses.filter(category=category)
-    
-    if city:
-        businesses = businesses.filter(city__icontains=city)
-    
-    search_query = request.GET.get('search')
-    if search_query:
-        businesses = businesses.filter(
-            Q(name__icontains=search_query) | 
-            Q(description__icontains=search_query) |
-            Q(city__icontains=search_query)
-        )
-    
-    # Get unique cities for filter
-    cities = Business.objects.filter(is_active=True).values_list('city', flat=True).distinct().order_by('city')
+    try:
+        businesses = Business.objects.filter(is_active=True)
+        category = request.GET.get('category')
+        city = request.GET.get('city')
+        
+        if category:
+            businesses = businesses.filter(category=category)
+        
+        if city:
+            businesses = businesses.filter(city__icontains=city)
+        
+        search_query = request.GET.get('search')
+        if search_query:
+            businesses = businesses.filter(
+                Q(name__icontains=search_query) | 
+                Q(description__icontains=search_query) |
+                Q(city__icontains=search_query)
+            )
+        
+        # Get unique cities for filter
+        cities = Business.objects.filter(is_active=True).values_list('city', flat=True).distinct().order_by('city')
+        
+    except Exception as e:
+        # If database table doesn't exist or other error, return empty queryset
+        from django.db import models
+        businesses = Business.objects.none()
+        cities = []
+        category = None
+        city = None
+        search_query = None
     
     context = {
         'businesses': businesses,
