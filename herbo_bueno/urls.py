@@ -12,7 +12,6 @@ urlpatterns = [
     path('ecosystem/', include('vendors.urls')),
     path('giveaways/', include('giveaways.urls')),
     path('memberships/', include('memberships.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 if settings.DEBUG:
