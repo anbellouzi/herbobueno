@@ -31,8 +31,8 @@ RUN mkdir -p /app/staticfiles
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
-# Create entrypoint script
-RUN echo '#!/bin/bash\nset -e\n\n# Run migrations\npython manage.py migrate\n\n# Start the application\nexec "$@"' > /app/entrypoint.sh
+# Copy entrypoint script
+COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
 # Expose port
