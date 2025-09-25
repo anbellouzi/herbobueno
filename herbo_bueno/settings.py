@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-your-secret-key-here')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app', '.herokuapp.com', '.railway.app']
 
@@ -66,39 +66,13 @@ WSGI_APPLICATION = 'herbo_bueno.wsgi.application'
 # Database
 import os
 
-# Check if we're on Railway
-IS_RAILWAY = os.environ.get('RAILWAY_ENVIRONMENT') or os.environ.get('DATABASE_URL')
-
-if IS_RAILWAY:
-    # Railway PostgreSQL configuration
-    import dj_database_url
-    
-    # Get DATABASE_URL from environment
-    database_url = os.environ.get('DATABASE_URL')
-    
-    if database_url:
-        # Parse the DATABASE_URL
-        DATABASES = {
-            'default': dj_database_url.parse(database_url)
-        }
-        # Ensure we're using PostgreSQL
-        DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
-    else:
-        # Fallback to SQLite if no DATABASE_URL
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': BASE_DIR / 'db.sqlite3',
-            }
-        }
-else:
-    # Local SQLite configuration
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+# Always use SQLite for simplicity and reliability
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
